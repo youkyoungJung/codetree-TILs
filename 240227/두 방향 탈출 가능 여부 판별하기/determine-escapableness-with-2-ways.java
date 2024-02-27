@@ -8,6 +8,7 @@ public class Main {
     static int m;
     static int[][] arr;
     static boolean flag = false;
+    static boolean[][] isVisited;
 
     public static void main(String[] args) throws IOException {
         // 여기에 코드를 작성해주세요.
@@ -17,6 +18,7 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
 
         arr = new int[n][m];
+        isVisited = new boolean[n][m];
         for(int i = 0; i < n; i++){
             st = new StringTokenizer(br.readLine());
             for(int j = 0; j < m; j++){
@@ -43,6 +45,7 @@ public class Main {
             int nc = c + dist[i][1];
 
             if(checked(nr, nc)){
+                isVisited[nr][nc] = true;
                 dfs(nr, nc);
             }
         }
@@ -50,7 +53,8 @@ public class Main {
 
     public static boolean checked(int nr, int nc){
 
-        if(nr >= 0 && nr < n && nc >= 0 && nc < m && arr[nr][nc] != 0){
+        if(nr >= 0 && nr < n && nc >= 0 && nc < m 
+                && arr[nr][nc] != 0 && !isVisited[nr][nc]){
             return true;
         }
         return false;
