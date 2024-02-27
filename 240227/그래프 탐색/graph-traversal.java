@@ -32,22 +32,21 @@ public class Main {
             graph.get(y).add(x);
         }
 
-        dfs(1, -1); //1번 정점 부터 시작
+        isVisited[1] = true;
+        dfs(1); //1번 정점 부터 시작
+
         System.out.println(answer);
     }
 
-    public static void dfs(int num, int current){
-        if(current == num){
-            return;
-        }
-
+    public static void dfs(int num){
+        
         for(int i = 0; i < graph.get(num).size(); i++){
             int next = graph.get(num).get(i);
 
             if(!isVisited[next]){
                 isVisited[next] = true;
                 answer++;
-                dfs(next, next);
+                dfs(next);
             }
         }
     }
