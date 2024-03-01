@@ -7,11 +7,11 @@ public class Main {
     static class Location{
         int r;
         int c;
-         
+
         public Location(int r, int c){
             this.r = r;
             this.c = c;
-        } 
+        }
     }
 
     static int[][] arr;
@@ -28,7 +28,7 @@ public class Main {
         arr = new int[n][n];
 
         for(int i = 0; i < n; i++){
-            st = new StringTokenizer(br.readLine());
+            st = new StringTokenizer(br.readLine(), " ");
             for(int j = 0; j < n; j++){
                 arr[i][j] = Integer.parseInt(st.nextToken());
             }
@@ -47,8 +47,10 @@ public class Main {
 
     public static void bfs(int r, int c){
         Queue<Location> queue = new ArrayDeque<>();
-        queue.offer(new Location(r, c));
-        arr[r][c] = -1;
+        if(checked(r, c)){
+            queue.offer(new Location(r, c));
+            arr[r][c] = -1;
+        }
 
         while(!queue.isEmpty()){
             Location current = queue.poll();
