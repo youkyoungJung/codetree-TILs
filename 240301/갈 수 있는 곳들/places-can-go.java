@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Main {
     static int[][] dist = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-    static int answer = 1;
+    static int answer = 0;
     static class Location{
         int r;
         int c;
@@ -50,6 +50,7 @@ public class Main {
         if(checked(r, c)){
             queue.offer(new Location(r, c));
             arr[r][c] = -1;
+            answer++;
         }
 
         while(!queue.isEmpty()){
