@@ -3,22 +3,22 @@ import java.io.*;
 
 public class Main {
 
-       static int[][] dist = {{-1 , 0}, {1, 0}, {0, -1}, {0, 1}}; 
-       static int n;
-       static int m;
-       static int[][] arr;
+    static int[][] dist = {{-1 , 0}, {1, 0}, {0, -1}, {0, 1}};
+    static int n;
+    static int m;
+    static int[][] arr;
 
-       static class Location{
-            int r;
-            int c;
-            public Location(int r, int c){
-                this.r = r;
-                this.c = c;
-            }
-       }
+    static class Location{
+        int r;
+        int c;
+        public Location(int r, int c){
+            this.r = r;
+            this.c = c;
+        }
+    }
 
-       public static void main(String[] args) throws IOException {
-        // 여기에 코드를 작성해주세요.    
+    public static void main(String[] args) throws IOException {
+        // 여기에 코드를 작성해주세요.
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
@@ -34,15 +34,17 @@ public class Main {
             }
         }
 
-        //뱀 있 : 0, 뱀 없: 1
-        bfs(0, 0);
+       bfs(0, 0);
+
     }
 
     public static void bfs(int r, int c){
-        
+
         Queue<Location> queue = new ArrayDeque<>();
-        queue.offer(new Location(r, c));
-        arr[r][c] = -1;
+        if(arr[0][0] == 1){
+            queue.offer(new Location(r, c));
+            arr[r][c] = -1;
+        }
 
         while(!queue.isEmpty()){
             Location current = queue.poll();
@@ -67,6 +69,6 @@ public class Main {
     }
 
     public static boolean checked(int r, int c){
-        return r >= 0 && r < n && c >= 0 && c < m && arr[r][c] != -1;
+        return r >= 0 && r < n && c >= 0 && c < m && arr[r][c] != -1 && arr[r][c] != 0;
     }
 }
