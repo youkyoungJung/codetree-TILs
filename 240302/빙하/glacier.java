@@ -1,96 +1,94 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
+
+class Point {
+    int x;
+    int y;
+
+    Point(int x ,int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
 
 public class Main {
+    public static final int MAX_SIZE = 200;
+    public static int n, m;
+    public static int[][] grid = new int[MAX_SIZE][MAX_SIZE];
 
-    static class Location{
-        int r;
-        int c;
+    public static int lastCnt = 0;
 
-        public Location(int r, int c){
-            this.r = r;
-            this.c = c;
-        }
+    public static boolean[][] isVisited;
+
+    public static Queue<Point> q = new ArrayDeque<>();
+
+    public static int[][] dist = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    public static boolean checked(int x, int y) {
+        return  0 <= x && x < n && 0 <= y && y < m && !isVisited[x][y];
     }
 
-    static int[][] arr;
-    static int n;
-    static int m;
-    static boolean[][] isVisited;
-    static int lastCnt = 0;
-    static int[][] dist = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
-    public static void main(String[] args) throws IOException {
-        // 여기에 코드를 작성해주세요.
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-
-        arr = new int[n][m];
-        for(int i = 0; i < n; i++){
-            st = new StringTokenizer(br.readLine());
-            for(int j = 0; j < m; j++){
-                arr[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
-
-        for(int time = 1; time <= n*m; time++){
-            isVisited = new boolean[n][m];
-
-            melt(0, 0);
-
-            if(!hasIce()){ //빙하가 없을 경우 출력
-                System.out.println(time + " " + lastCnt);
-                break;
-            }
-        }
-
-    }
-
-    //빙하가 남아있는지 판별
-    public static boolean hasIce(){
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++){
-                if(!isVisited[i][j]){
+    public static boolean hasIce() {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1)
                     return true;
-                }
             }
         }
         return false;
     }
 
-    // 빙하 일 경우 bfs
-    public static void melt(int r, int c){
+    public static void BFS(int x, int y) {
 
-        Queue<Location> queue = new ArrayDeque<>();
-        isVisited[r][c] = true;
-        queue.offer(new Location(r, c));
+        isVisited[x][y] = true;
+        q.offer(new Point(x, y));
 
         int cnt = 0;
-        while(!queue.isEmpty()){
-            Location current = queue.poll();
+        while (!q.isEmpty()) {
+            Point now = q.poll();
 
-            for(int i = 0; i < 4; i++){
-                int nr = current.r + dist[i][0];
-                int nc = current.c + dist[i][1];
-
-                if(checked(nr, nc)){
-                    if(arr[nr][nc] == 1){
-                        isVisited[nr][nc] = true;
-                        cnt++;
-                    }else{
-                        isVisited[nr][nc] = true;
-                        queue.offer(new Location(nr, nc));
+            for (int i = 0; i < 4; i++) {
+                int nx = now.x + dist[i][0];
+                int ny = now.y + dist[i][1];
+                if (checked(nx, ny)) {
+                    isVisited[nx][ny] = true;
+                    if (grid[nx][ny] == 0)
+                        q.offer(new Point(nx, ny));
+                    else {
+                        cnt ++;
+                        grid[nx][ny] = 0;
                     }
                 }
             }
         }
-
         lastCnt = cnt;
     }
 
-    public static boolean checked(int r, int c){
-        return r >= 0 && r < n && c >= 0 && c < m && !isVisited[r][c];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+
+        grid = new int[n][m];
+        for(int i = 0; i < n; i++){
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0; j < m; j++){
+                grid[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        for (int time = 1; time <= n*m; time++) {
+            isVisited = new boolean[n][m];
+
+            BFS(0, 0);
+
+            if(!hasIce()) {
+                System.out.println(time + " " + lastCnt);
+                break;
+            }
+
+        }
     }
 }
