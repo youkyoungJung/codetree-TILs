@@ -76,28 +76,30 @@ public class Main {
 
     public static int findAnswer(){
 
-        int max = Integer.MIN_VALUE;
+        int res = 0;
         isVisited = new boolean[n][n];
 
         for(int i = 0; i < k; i++){
             Location current = starts.get(i);
-            int res = bfs(current.r, current.c);
-            max = Math.max(max, res);
+            res += bfs(current.r, current.c);
         }
-        return max;
+        return res;
     }
 
     //돌 치우고 이동한 수
     public static int bfs(int r, int c){
 
-        int cnt = 1;
+        int cnt = 0;
 
         Queue<Location> queue = new ArrayDeque<Location>();
-        queue.offer(new Location(r, c));
-        isVisited[r][c] = true;
+        if(!isVisited[r][c]){
+            queue.offer(new Location(r, c));
+            isVisited[r][c] = true;
+        }
 
         while(!queue.isEmpty()){
             Location current = queue.poll();
+            cnt++;
 
             for(int i = 0; i < 4; i++){
                 int nr = current.r + dist[i][0];
@@ -105,7 +107,6 @@ public class Main {
 
                 if(checked(nr, nc)){
                     isVisited[nr][nc] = true;
-                    cnt++;
                     queue.offer(new Location(nr, nc));
                 }
             }
@@ -115,6 +116,6 @@ public class Main {
     }
 
     public static boolean checked(int r, int c){
-        return r >= 0 && r < n && c >= 0 && c < n && !isVisited[r][c] && arr[r][c] != 1;
+        return r >= 0 && r < n && c >= 0 && c < n && !isVisited[r][c] && arr[r][c] == 0;
     }
 }
