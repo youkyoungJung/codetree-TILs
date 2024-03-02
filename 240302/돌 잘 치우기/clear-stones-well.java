@@ -22,6 +22,10 @@ public class Main {
     static int answer = Integer.MIN_VALUE;
     static int[][] dist = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
+    static ArrayList<Location> stones = new ArrayList<>();
+
+    static ArrayList<Location> selects = new ArrayList<>();
+
     static ArrayList<Location> starts;
 
     public static void main(String[] args) throws IOException {
@@ -39,6 +43,9 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             for(int j = 0; j < n; j++){
                 arr[i][j] = Integer.parseInt(st.nextToken());
+                if(arr[i][j] == 1){
+                    stones.add(new Location(i, j));
+                }
             }
         }
 
@@ -50,52 +57,61 @@ public class Main {
             starts.add(new Location(r, c));
         }
 
-        clearRock(0);
+        chooseRock(0, 0);
+
         System.out.println(answer);
 
     }
 
-    //돌이 있을 경우 치우기
-    public static void clearRock(int cnt){
-        //기저 조건
-        if(cnt == m){
-            answer = Math.max(answer, findAnswer());
+    // 바꿀 돌 뽑기
+    public static void chooseRock(int idx, int cnt){
+        //기저 조건 돌을 다 봤을 경우
+        if(idx == stones.size()){
+            if(cnt == m){
+                answer = Math.max(answer, findAnswer());
+            }
             return;
         }
 
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
-                if(arr[i][j] == 1){
-                    arr[i][j] = 0;
-                    clearRock(cnt + 1);
-                    arr[i][j] = 1;
-                }
-            }
-        }
+        //선택
+        selects.add(stones.get(idx));
+        chooseRock(idx + 1, cnt + 1);
+        //비선택
+        selects.remove(selects.size() - 1);
+        chooseRock(idx + 1, cnt);
+
     }
 
     public static int findAnswer(){
 
-        int res = 0;
+        for(int i = 0; i < m; i++){
+            arr[selects.get(i).r][selects.get(i).c] = 0;
+        }
+
         isVisited = new boolean[n][n];
 
         for(int i = 0; i < k; i++){
             Location current = starts.get(i);
-            res += bfs(current.r, current.c);
+            if(!isVisited[current.r][current.c]){
+                queue.offer(new Location(current.r, current.c));
+                isVisited[current.r][current.c] = true;
+            }
         }
+
+        int res = bfs();
+
+        for(int i = 0; i < m; i++){
+            arr[selects.get(i).r][selects.get(i).c] = 1;
+        }
+        
         return res;
     }
 
+    static  Queue<Location> queue = new ArrayDeque<Location>();
     //돌 치우고 이동한 수
-    public static int bfs(int r, int c){
+    public static int bfs(){
 
         int cnt = 0;
-
-        Queue<Location> queue = new ArrayDeque<Location>();
-        if(!isVisited[r][c]){
-            queue.offer(new Location(r, c));
-            isVisited[r][c] = true;
-        }
 
         while(!queue.isEmpty()){
             Location current = queue.poll();
