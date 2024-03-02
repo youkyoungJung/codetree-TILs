@@ -1,7 +1,8 @@
-import java.util.Scanner;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Collections;
+import java.io.*;
+import java.util.*;
 
 class Pair {
     int x, y;
@@ -118,15 +119,18 @@ public class Main {
         return true;
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        // 입력:
-        n = sc.nextInt();
-        m = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < m; j++)
-                a[i][j] = sc.nextInt();
+        for(int i = 0; i < n; i++){
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0; j < m; j++){
+                a[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
         
         // 처음에는 (0, 0) 에서 시작하여 초기 빙하에 둘러쌓여 있지 않은 물들을 찾을 수 있도록 합니다.
         q.add(new Pair(0, 0));
