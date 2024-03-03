@@ -80,6 +80,10 @@ public class Main {
             }
             return;
         }
+
+        if(cnt > k){
+            return;
+        }
         //선택
         selects.add(nums.get(idx));
         combi(idx + 1, cnt+1);
