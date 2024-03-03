@@ -45,7 +45,7 @@ public class Main {
             }
         }
 
-        per(0);
+        per(0); 
         combi(0, 0);
 
         System.out.println(answer);
@@ -88,9 +88,12 @@ public class Main {
         combi(idx + 1, cnt);
 
     }
+
+    //nums 뽑기(Location 뽑기)
     public static void per(int cnt){
         //기저조건
         if(cnt == 2){
+            // System.out.println(Arrays.toString(num));
             nums.add(new Location(num[0], num[1]));
             return;
         }
@@ -108,16 +111,16 @@ public class Main {
         while(!queue.isEmpty()){
             Location current = queue.poll();
             cnt++;
-
+            
             for(int i = 0; i < 4; i++){
                 int nr = current.r + dist[i][0];
                 int nc = current.c + dist[i][1];
 
                 if(checked(nr, nc)){
+                    isVisited[nr][nc] = true;
                     if(canGo(current, nr, nc)){
                         queue.offer(new Location(nr, nc));
                     }
-                    isVisited[nr][nc] = true;
                 }
             }
         }
