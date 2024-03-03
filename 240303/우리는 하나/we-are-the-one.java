@@ -56,19 +56,32 @@ public class Main {
     }//end of main
 
     public static void simulation() {
-        int cnt = 1;
+        int cnt = 0;
 
+        isVisited = new boolean[n][n];
         for (int i = 0; i < k; i++) {
             int r = selects.get(i).r;
             int c = selects.get(i).c;
 
-            isVisited = new boolean[n][n];
             queue.offer(new Location(r, c));
             isVisited[r][c] = true;
-            cnt += goArea();
+            goArea();
         }
+        cnt = calc();
 
-        answer = Math.max(answer, cnt);
+        if(answer < cnt){
+            answer = cnt;
+        }
+    }
+
+    public static int calc(){
+        int cnt = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(isVisited[i][j]) cnt++;
+            }
+        }
+        return cnt;
     }
 
     //구해진 nums(Location) 중 k 개 뽑기
@@ -80,6 +93,9 @@ public class Main {
             }
             return;
         }
+
+        if(cnt > k) return;
+
         //선택
         selects.add(nums.get(idx));
         combi(idx + 1, cnt+1);
@@ -101,8 +117,7 @@ public class Main {
         }
     } //end of per
 
-    public static int goArea(){
-        int cnt = 0;
+    public static void goArea(){
         while(!queue.isEmpty()){
             Location current = queue.poll();
 
@@ -114,14 +129,12 @@ public class Main {
                     if(canGo(current, nr, nc)){
                         queue.offer(new Location(nr, nc));
                         isVisited[nr][nc] = true;
-                        cnt++;
                     }
                 }
             }
         }
-        return cnt;
     }//end of goArea
-    
+
     public static boolean checked(int nr, int nc){
         return nr >= 0 && nr < n && nc >= 0 && nc < n && !isVisited[nr][nc];
     }//end of checked
