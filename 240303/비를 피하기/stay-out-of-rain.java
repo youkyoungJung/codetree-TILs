@@ -59,7 +59,9 @@ public class Main {
         for(int i = 0; i < people.size(); i++){
             Location current = people.get(i);
             isVisited = new boolean[n][n];
-            bfs(current.r, current.c, current);
+
+            int res = bfs(current.r, current.c);
+            answer[current.r][current.c] = res;
         }
 
         for(int i = 0; i < n; i++){
@@ -72,9 +74,10 @@ public class Main {
         System.out.println(sb.toString());
     } //end of main
 
-    public static void bfs(int r, int c, Location now){
+    public static int bfs(int r, int c){
 
         Queue<Location> queue = new ArrayDeque<>();
+    
         queue.offer(new Location(r, c, 0));
         isVisited[r][c] = true;
 
@@ -84,9 +87,7 @@ public class Main {
             for(int i = 0; i < desti.size(); i++){
                 Location d = desti.get(i);
                 if(d.r == current.r && d.c == current.c){
-                    // System.out.println("d.r: " + d.r + " d.c: " + d.c);
-                    answer[now.r][now.c] = current.cnt;
-                    return;
+                    return current.cnt;
                 }
             }
 
@@ -100,6 +101,7 @@ public class Main {
                 }
             }
         }
+        return -1;
         
     } // end of bfs
 
