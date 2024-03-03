@@ -46,6 +46,10 @@ public class Main {
         while(!queue.isEmpty()){
             Location current = queue.poll();
 
+            if(current.r == er && current.c == ec){
+                return current.cnt;
+            }
+
             for(int i = 0; i < dist.length; i++){
                 int nr = current.r + dist[i][0];
                 int nc = current.c + dist[i][1];
@@ -55,9 +59,6 @@ public class Main {
                     queue.offer(new Location(nr, nc, current.cnt + 1));
                 }
 
-                if(nr == er && nc == ec){
-                    return current.cnt + 1;
-                }
             }
         }
         return -1;
