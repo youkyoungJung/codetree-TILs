@@ -74,7 +74,7 @@ public class Main {
     //구해진 nums(Location) 중 k 개 뽑기
     public static void combi(int idx, int cnt){
         //기저조건
-        if(idx == nums.size()){
+        if(idx == n * n){
             if(cnt == k){
                 simulation();
             }
