@@ -11,6 +11,10 @@ public class Main {
             this.r = r;
             this.c = c;
         }
+
+        public String toString(){
+            return "Location[r=" + r +" , c=" + c + "]";
+        }
     }
 
     static int n;
@@ -45,43 +49,35 @@ public class Main {
             }
         }
 
-        per(0); 
+        per(0);
         combi(0, 0);
 
         System.out.println(answer);
     }//end of main
 
-    public static void simulation(){
+    public static void simulation() {
+        int cnt = 1;
 
-        isVisited = new boolean[n][n];
-
-        for(int i = 0; i < k; i++){
+        for (int i = 0; i < k; i++) {
             int r = selects.get(i).r;
             int c = selects.get(i).c;
 
-            if(!isVisited[r][c]){
-                queue.offer(new Location(r, c));
-                isVisited[r][c] = true;
-            }
+            isVisited = new boolean[n][n];
+            queue.offer(new Location(r, c));
+            isVisited[r][c] = true;
+            cnt += goArea();
         }
 
-        int res = goArea();
-        if(answer < res) {
-            answer = res;
-        }
+        answer = Math.max(answer, cnt);
     }
 
     //구해진 nums(Location) 중 k 개 뽑기
     public static void combi(int idx, int cnt){
         //기저조건
-        if(idx == n * n){
+        if(idx == nums.size()){
             if(cnt == k){
                 simulation();
             }
-            return;
-        }
-
-        if(cnt > k){
             return;
         }
         //선택
@@ -92,12 +88,9 @@ public class Main {
         combi(idx + 1, cnt);
 
     }
-
-    //nums 뽑기(Location 뽑기)
     public static void per(int cnt){
         //기저조건
         if(cnt == 2){
-            // System.out.println(Arrays.toString(num));
             nums.add(new Location(num[0], num[1]));
             return;
         }
@@ -109,38 +102,32 @@ public class Main {
     } //end of per
 
     public static int goArea(){
-
         int cnt = 0;
-
         while(!queue.isEmpty()){
             Location current = queue.poll();
-            cnt++;
-            
+
             for(int i = 0; i < 4; i++){
                 int nr = current.r + dist[i][0];
                 int nc = current.c + dist[i][1];
 
                 if(checked(nr, nc)){
-                    isVisited[nr][nc] = true;
                     if(canGo(current, nr, nc)){
                         queue.offer(new Location(nr, nc));
+                        isVisited[nr][nc] = true;
+                        cnt++;
                     }
                 }
             }
         }
         return cnt;
     }//end of goArea
-
+    
     public static boolean checked(int nr, int nc){
         return nr >= 0 && nr < n && nc >= 0 && nc < n && !isVisited[nr][nc];
     }//end of checked
 
     public static boolean canGo(Location current, int nr, int nc){
-        int currVal = arr[current.r][current.c];
-        int nexVal = arr[nr][nc];
-
-        int diff = Math.abs(currVal - nexVal);
-
+        int diff = Math.abs(arr[current.r][current.c] - arr[nr][nc]);
         return diff >= u && diff <= d;
     }//end of canGo
 
