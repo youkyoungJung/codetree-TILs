@@ -20,7 +20,6 @@ public class Main {
     static int[][] dist= {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     static int[][] answer;
     static ArrayList<Location> people = new ArrayList<Location>();
-    static ArrayList<Location> desti = new ArrayList<Location>();
     static int n;
 
     public static void main(String[] args) throws IOException {
@@ -43,8 +42,6 @@ public class Main {
 
                 if(arr[i][j] == 2){ //사람이 있는 위치
                     people.add(new Location(i, j, 0));
-                }else if(arr[i][j] == 3){ //목적지 위치
-                    desti.add(new Location(i, j, 0));
                 }
 
             }
@@ -84,12 +81,9 @@ public class Main {
         while(!queue.isEmpty()){
             Location current = queue.poll();
 
-            for(int i = 0; i < desti.size(); i++){
-                Location d = desti.get(i);
-                if(d.r == current.r && d.c == current.c){
-                    return current.cnt;
-                }
-            }
+            if(arr[current.r][current.c] == 3){
+                return current.cnt;
+            } 
 
             for(int i = 0; i < 4; i++){
                 int nr = current.r + dist[i][0];
