@@ -17,13 +17,15 @@ public class Main {
     static int k;
     static int u;
     static int d;
-
     static int[][] arr;
     static int[][] dist = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     static boolean[][] isVisited;
     static int[] num = new int[2];
     static int answer = Integer.MIN_VALUE;
-    
+    static Queue<Location> queue = new ArrayDeque<>();
+    static ArrayList<Location> nums = new ArrayList<>();
+    static ArrayList<Location> selects = new ArrayList<>();
+
     public static void main(String[] args) throws IOException {
         // 여기에 코드를 작성해주세요.
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -35,7 +37,6 @@ public class Main {
         d = Integer.parseInt(st.nextToken());
 
         arr = new int[n][n];
-        isVisited = new boolean[n][n];
 
         for(int i = 0; i < n; i++){
             st = new StringTokenizer(br.readLine());
@@ -45,15 +46,52 @@ public class Main {
         }
 
         per(0);
+        combi(0, 0);
+
         System.out.println(answer);
     }//end of main
 
+    public static void simulation(){
+
+        isVisited = new boolean[n][n];
+
+        for(int i = 0; i < k; i++){
+            int r = selects.get(i).r;
+            int c = selects.get(i).c;
+
+            if(!isVisited[r][c]){
+                queue.offer(new Location(r, c));
+                isVisited[r][c] = true;
+            }
+        }
+
+        int res = goArea();
+        if(answer < res) {
+            answer = res;
+        }
+    }
+
+    //구해진 nums(Location) 중 k 개 뽑기
+    public static void combi(int idx, int cnt){
+        //기저조건
+        if(idx == nums.size()){
+            if(cnt == k){
+                simulation();
+            }
+            return;
+        }
+        //선택
+        selects.add(nums.get(idx));
+        combi(idx + 1, cnt+1);
+        //비선택
+        selects.remove(selects.size()-1);
+        combi(idx + 1, cnt);
+
+    }
     public static void per(int cnt){
         //기저조건
         if(cnt == 2){
-            // System.out.println(Arrays.toString(num));
-            isVisited = new boolean[n][n];
-            answer = Math.max(answer, goArea());
+            nums.add(new Location(num[0], num[1]));
             return;
         }
 
@@ -65,13 +103,11 @@ public class Main {
 
     public static int goArea(){
 
-        int cnt = 1;
-        Queue<Location> queue = new ArrayDeque<>();
-        queue.offer(new Location(num[0], num[1]));
-        isVisited[num[0]][num[1]] = true;
+        int cnt = 0;
 
         while(!queue.isEmpty()){
             Location current = queue.poll();
+            cnt++;
 
             for(int i = 0; i < 4; i++){
                 int nr = current.r + dist[i][0];
@@ -80,7 +116,6 @@ public class Main {
                 if(checked(nr, nc)){
                     if(canGo(current, nr, nc)){
                         queue.offer(new Location(nr, nc));
-                        cnt++;
                     }
                     isVisited[nr][nc] = true;
                 }
