@@ -18,7 +18,7 @@ public class Main {
     static int k;
     static int[][] arr;
     static boolean[][] isVisited;
-    static int[][] answer; 
+    static int[][] answer;
     static ArrayList<Location> goBad = new ArrayList<>();
     static Queue<Location> queue = new ArrayDeque<>();
     static int[][] dist = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -39,7 +39,7 @@ public class Main {
         //1: 해당 칸에 귤이 놓여있음
         //2: 해당칸에 상한 귤이 처음부터 놓여있음
 
-        //answer 배열 
+        //answer 배열
         //-1 : 처음부터 비어있던 칸
         //-2 : 끝까지 상하지 않는 귤
 
@@ -51,6 +51,7 @@ public class Main {
                     goBad.add(new Location(i, j, 0));
                 }else if(arr[i][j] == 0){ //처음부터 비어 있는 칸
                     answer[i][j] = -1;
+                    isVisited[i][j] = true;
                 }
             }
         } // 입력 완료
@@ -89,17 +90,15 @@ public class Main {
 
                 if(checked(nr, nc)){
                     isVisited[nr][nc] = true;
-                    if(arr[nr][nc] == 1){
-                        queue.offer(new Location(nr, nc, current.cnt + 1));
-                    }
+                    queue.offer(new Location(nr, nc, current.cnt + 1));
                 }
             }
-            
+
         }
     } // end of bfs
 
     public static boolean checked(int r, int c){
-        return r >= 0 && r < n && c >= 0 && c < n && !isVisited[r][c];
+        return r >= 0 && r < n && c >= 0 && c < n && !isVisited[r][c] && arr[r][c] == 1;
     }
 
 }//end of class
