@@ -4,8 +4,7 @@ import java.io.*;
 public class Main {
 
     static int n;
-    static int[] go = {0, 1, 2, 3};
-    static boolean[] isVisited = new boolean[1_000_001];
+    static HashSet<Integer> hash = new HashSet<>();
     public static void main(String[] args) throws IOException {
         // 여기에 코드를 작성해주세요.
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,12 +17,12 @@ public class Main {
 
         Queue<int[]> queue = new ArrayDeque<>();
         queue.offer(new int[]{n, 0});
-        isVisited[n] = true;
+        hash.add(n);
 
         while(!queue.isEmpty()){
             int[] current = queue.poll();
             if(current[0] == 1){
-                return current[1]; 
+                return current[1];
             }
 
             for(int i = 0; i < 4; i++){
@@ -38,9 +37,9 @@ public class Main {
                     next = go3(current[0]);
                 }
 
-                if(!isVisited[next]){
+                if(!hash.contains(next)){
                     queue.offer(new int[]{next, current[1] + 1});
-                    isVisited[next] = true;
+                    hash.add(next);
                 }
             }
         }
