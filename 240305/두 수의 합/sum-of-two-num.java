@@ -16,10 +16,11 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         for(int i = 0; i < n; i++){
             int num = Integer.parseInt(st.nextToken());
-            map.put(num, 0);
             if(map.containsKey(k - num)){
-                cnt++;
+                cnt += map.get(k-num);
             }
+            map.put(num, map.getOrDefault(num, 0)+1);
+
         }
 
         System.out.println(cnt);
