@@ -50,27 +50,108 @@ public class Main {
             Node b = bombs.get(i);
             if(!visited[i]) {
                 visited[i] = true;
-                for(int j = 0; j < 3; j++) {
-                    int n = 1;
-                    boommed[b.r][b.c] = true;
-                    for(int k = 0; k < 4; k++) {
-                        int nr = dir[j][k][0] + b.r;
-                        int nc = dir[j][k][1] + b.c;
-                        if(inGraph(nr, nc) && !boommed[nr][nc]) {
-                            boommed[nr][nc] = true;
-                            n++;
-                        }
+                int n1 = 1, n2 =1, n3 = 1;
+                boommed[b.r][b.c] = true;
+                for(int k = 0; k < 4; k++) {
+                    int nr = dir[0][k][0] + b.r;
+                    int nc = dir[0][k][1] + b.c;
+                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
+                        boommed[nr][nc] = true;
+                        n1++;
                     }
-                    dfs(cnt+1, total + n);
-                    for(int k = 0; k < 4; k++) {
-                        int nr = dir[j][k][0] + b.r;
-                        int nc = dir[j][k][1] + b.c;
-                        if(inGraph(nr, nc)  && boommed[nr][nc]) {
-                            boommed[nr][nc] = false;
-                        }
-                    }
-                    boommed[b.r][b.c] = false;
                 }
+                for(int k = 0; k < 4; k++) {
+                    int nr = dir[0][k][0] + b.r;
+                    int nc = dir[0][k][1] + b.c;
+                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
+                        boommed[nr][nc] = false;
+                    }
+                }
+
+                for(int k = 0; k < 4; k++) {
+                    int nr = dir[1][k][0] + b.r;
+                    int nc = dir[1][k][1] + b.c;
+                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
+                        boommed[nr][nc] = true;
+                        n2++;
+                    }
+                }
+                for(int k = 0; k < 4; k++) {
+                    int nr = dir[1][k][0] + b.r;
+                    int nc = dir[1][k][1] + b.c;
+                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
+                        boommed[nr][nc] = false;
+                    }
+                }
+
+                for(int k = 0; k < 4; k++) {
+                    int nr = dir[2][k][0] + b.r;
+                    int nc = dir[2][k][1] + b.c;
+                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
+                        boommed[nr][nc] = true;
+                        n3++;
+                    }
+                }
+                for(int k = 0; k < 4; k++) {
+                    int nr = dir[2][k][0] + b.r;
+                    int nc = dir[2][k][1] + b.c;
+                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
+                        boommed[nr][nc] = false;
+                    }
+                }
+
+                int m = Math.max(n1, Math.max(n2, n3));
+
+
+                if(m == n1){for(int k = 0; k < 4; k++) {
+                    int nr = dir[0][k][0] + b.r;
+                    int nc = dir[0][k][1] + b.c;
+                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
+                        boommed[nr][nc] = true;
+                    }
+                }
+                dfs(cnt+1, total+n1);
+                for(int k = 0; k < 4; k++) {
+                    int nr = dir[0][k][0] + b.r;
+                    int nc = dir[0][k][1] + b.c;
+                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
+                        boommed[nr][nc] = false;
+                    }
+                }}
+
+                if(m == n2){for(int k = 0; k < 4; k++) {
+                    int nr = dir[1][k][0] + b.r;
+                    int nc = dir[1][k][1] + b.c;
+                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
+                        boommed[nr][nc] = true;
+                    }
+                }
+                dfs(cnt+1, total+n2);
+                for(int k = 0; k < 4; k++) {
+                    int nr = dir[1][k][0] + b.r;
+                    int nc = dir[1][k][1] + b.c;
+                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
+                        boommed[nr][nc] = false;
+                    }
+                }}
+
+                if(m == n3){for(int k = 0; k < 4; k++) {
+                    int nr = dir[2][k][0] + b.r;
+                    int nc = dir[2][k][1] + b.c;
+                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
+                        boommed[nr][nc] = true;
+                    }
+                }
+                dfs(cnt+1, total+n3);
+                for(int k = 0; k < 4; k++) {
+                    int nr = dir[2][k][0] + b.r;
+                    int nc = dir[2][k][1] + b.c;
+                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
+                        boommed[nr][nc] = false;
+                    }
+                }}
+                boommed[b.r][b.c] = false;
+                
                 visited[i] = false;
             }
         }
