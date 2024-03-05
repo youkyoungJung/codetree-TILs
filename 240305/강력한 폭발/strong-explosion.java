@@ -34,23 +34,16 @@ public class Main {
         }
         visited = new boolean[bombs.size()];
 
-        dfs(0);
+        dfs(0, 0);
 
         System.out.println(max);
 
 
     }
 
-    public static void dfs(int cnt) {
+    public static void dfs(int cnt, int total) {
         if(cnt == bombs.size()) {
-            int total = 0;
-            for(int i = 0; i < n; i++) {
-                for(int j = 0; j < n; j++) {
-                    if(boommed[i][j])
-                        total++;
-                }
-            }
-            max = Math.max(max, total + bombs.size());
+            max = Math.max(max, total);
             return;
         }
         for(int i = 0; i < bombs.size(); i++) {
@@ -58,14 +51,17 @@ public class Main {
             if(!visited[i]) {
                 visited[i] = true;
                 for(int j = 0; j < 3; j++) {
+                    int n = 1;
+                    boommed[b.r][b.c] = true;
                     for(int k = 0; k < 4; k++) {
                         int nr = dir[j][k][0] + b.r;
                         int nc = dir[j][k][1] + b.c;
-                        if(inGraph(nr, nc) && !boommed[nr][nc] && graph[nr][nc] == 0) {
+                        if(inGraph(nr, nc) && !boommed[nr][nc]) {
                             boommed[nr][nc] = true;
+                            n++;
                         }
                     }
-                    dfs(cnt+1);
+                    dfs(cnt+1, total + n);
                     for(int k = 0; k < 4; k++) {
                         int nr = dir[j][k][0] + b.r;
                         int nc = dir[j][k][1] + b.c;
@@ -73,6 +69,7 @@ public class Main {
                             boommed[nr][nc] = false;
                         }
                     }
+                    boommed[b.r][b.c] = false;
                 }
                 visited[i] = false;
             }
