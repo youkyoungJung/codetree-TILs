@@ -1,165 +1,102 @@
-import java.io.*;
-import java.util.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+class Pair { 
+    int x, y;
+    public Pair(int x, int y) { 
+        this.x = x; 
+        this.y = y; 
+    } 
+}
 
 public class Main {
-    static int n;
-    static int[][] graph;
-    static int max = -1;
-    static int[][][] dir = {{{-2,0}, {-1,0}, {1,0},{2,0}}, {{-1,0}, {1,0}, {0,-1}, {0,1}}, {{-1,1}, {-1,1}, {1,-1}, {1, 1}}};
-    static class Node {
-        int r, c;
-        public Node(int r, int c) {
-            this.r = r;
-            this.c = c;
-        }
-    }
-    static ArrayList<Node> bombs = new ArrayList<>();
-    static boolean[] visited;
-    static boolean[][] boommed;
+    public static final int BOMB_TYPE_NUM = 3;
+    public static final int MAX_N = 20;
+    
+    public static int n;
+    public static int[][] bombType = new int[MAX_N][MAX_N];
+    public static boolean[][] bombed = new boolean[MAX_N][MAX_N];
+    
+    public static int ans;
 
-    public static void main(String[] args) throws IOException{
-        // 여기에 코드를 작성해주세요.
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
-        graph = new int[n][n];
-        boommed = new boolean[n][n];
-        StringTokenizer st;
-        for(int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            for(int j = 0; j < n; j++) {
-                int n = Integer.parseInt(st.nextToken());
-                if(n == 1)
-                    bombs.add(new Node(i,j));
-            }
-        }
-        visited = new boolean[bombs.size()];
-
-        dfs(0, 0);
-
-        System.out.println(max);
-
-
-    }
-
-    public static void dfs(int cnt, int total) {
-        if(cnt == bombs.size()) {
-            max = Math.max(max, total);
-            return;
-        }
-        for(int i = 0; i < bombs.size(); i++) {
-            Node b = bombs.get(i);
-            if(!visited[i]) {
-                visited[i] = true;
-                int n1 = 1, n2 =1, n3 = 1;
-                boommed[b.r][b.c] = true;
-                for(int k = 0; k < 4; k++) {
-                    int nr = dir[0][k][0] + b.r;
-                    int nc = dir[0][k][1] + b.c;
-                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
-                        boommed[nr][nc] = true;
-                        n1++;
-                    }
-                }
-                for(int k = 0; k < 4; k++) {
-                    int nr = dir[0][k][0] + b.r;
-                    int nc = dir[0][k][1] + b.c;
-                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
-                        boommed[nr][nc] = false;
-                    }
-                }
-
-                for(int k = 0; k < 4; k++) {
-                    int nr = dir[1][k][0] + b.r;
-                    int nc = dir[1][k][1] + b.c;
-                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
-                        boommed[nr][nc] = true;
-                        n2++;
-                    }
-                }
-                for(int k = 0; k < 4; k++) {
-                    int nr = dir[1][k][0] + b.r;
-                    int nc = dir[1][k][1] + b.c;
-                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
-                        boommed[nr][nc] = false;
-                    }
-                }
-
-                for(int k = 0; k < 4; k++) {
-                    int nr = dir[2][k][0] + b.r;
-                    int nc = dir[2][k][1] + b.c;
-                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
-                        boommed[nr][nc] = true;
-                        n3++;
-                    }
-                }
-                for(int k = 0; k < 4; k++) {
-                    int nr = dir[2][k][0] + b.r;
-                    int nc = dir[2][k][1] + b.c;
-                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
-                        boommed[nr][nc] = false;
-                    }
-                }
-
-                int m = Math.max(n1, Math.max(n2, n3));
-
-
-                if(m == n1){for(int k = 0; k < 4; k++) {
-                    int nr = dir[0][k][0] + b.r;
-                    int nc = dir[0][k][1] + b.c;
-                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
-                        boommed[nr][nc] = true;
-                    }
-                }
-                dfs(cnt+1, total+n1);
-                for(int k = 0; k < 4; k++) {
-                    int nr = dir[0][k][0] + b.r;
-                    int nc = dir[0][k][1] + b.c;
-                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
-                        boommed[nr][nc] = false;
-                    }
-                }}
-
-                if(m == n2){for(int k = 0; k < 4; k++) {
-                    int nr = dir[1][k][0] + b.r;
-                    int nc = dir[1][k][1] + b.c;
-                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
-                        boommed[nr][nc] = true;
-                    }
-                }
-                dfs(cnt+1, total+n2);
-                for(int k = 0; k < 4; k++) {
-                    int nr = dir[1][k][0] + b.r;
-                    int nc = dir[1][k][1] + b.c;
-                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
-                        boommed[nr][nc] = false;
-                    }
-                }}
-
-                if(m == n3){for(int k = 0; k < 4; k++) {
-                    int nr = dir[2][k][0] + b.r;
-                    int nc = dir[2][k][1] + b.c;
-                    if(inGraph(nr, nc) && !boommed[nr][nc]) {
-                        boommed[nr][nc] = true;
-                    }
-                }
-                dfs(cnt+1, total+n3);
-                for(int k = 0; k < 4; k++) {
-                    int nr = dir[2][k][0] + b.r;
-                    int nc = dir[2][k][1] + b.c;
-                    if(inGraph(nr, nc)  && boommed[nr][nc]) {
-                        boommed[nr][nc] = false;
-                    }
-                }}
-                boommed[b.r][b.c] = false;
-                
-                visited[i] = false;
-            }
-        }
-
+    public static ArrayList<Pair> bombPos = new ArrayList<>();
+    
+    public static boolean inRange(int x, int y) {
+        return 0 <= x && x < n && 0 <= y && y < n;
     }
     
+    public static void bomb(int x, int y, int bType) {
+        // 폭탄 종류마다 터질 위치를 미리 정의합니다.
+        Pair[][] bombShapes = {
+            {},
+            {new Pair(-2, 0), new Pair(-1, 0), new Pair(0, 0), new Pair(1, 0), new Pair(2, 0)},
+            {new Pair(-1, 0), new Pair(1, 0), new Pair(0, 0), new Pair(0, -1), new Pair(0, 1)},
+            {new Pair(-1, -1), new Pair(-1, 1), new Pair(0, 0), new Pair(1, -1), new Pair(1, 1)}
+        };
+        
+        // 격자 내 칸에 대해서만 영역을 표시합니다.
+        for(int i = 0; i < 5; i++) {
+            int dx = bombShapes[bType][i].x;
+            int dy = bombShapes[bType][i].y;
+            
+            int nx = x + dx, ny = y + dy;
+            if(inRange(nx, ny))
+                bombed[nx][ny] = true;
+        }
+    }
+    
+    public static int calc() {
+        // Step1. 폭탄이 터진 위치를 표시하는 배열을
+        // 초기화합니다.
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+                bombed[i][j] = false;
+        
+        // Step2. 각 폭탄의 타입에 따라 
+        // 초토화 되는 영역을 표시합니다.
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+                if(bombType[i][j] > 0)
+                    bomb(i, j, bombType[i][j]);
+        
+        // Step3. 초토화된 영역의 수를 구합니다.
+        int cnt = 0;
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+                if(bombed[i][j])
+                    cnt++;
+        
+        return cnt;
+    }
+    
+    public static void findMaxArea(int cnt) {
+        if(cnt == (int) bombPos.size()) {
+            ans = Math.max(ans, calc());
+            return;
+        }
+        for(int i = 1; i <= 3; i++) {
+            int x = bombPos.get(cnt).x;
+            int y = bombPos.get(cnt).y;
+            
+            bombType[x][y] = i;
+            findMaxArea(cnt + 1);
+            bombType[x][y] = 0;
+        }
+    }
 
-    public static boolean inGraph(int r, int c) {
-        return 0 <= r && r < n && 0 <= c && c < n;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++) {
+                int bombPlace = sc.nextInt();
+                if(bombPlace > 0)
+                    bombPos.add(new Pair(i, j));
+            }
+        
+        findMaxArea(0);
+        
+        System.out.print(ans);
     }
 }
