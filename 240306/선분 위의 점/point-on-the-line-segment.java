@@ -49,6 +49,9 @@ public class Main {
                 left = mid + 1;
             }
         }
+        if(minIdx >= 1 && minIdx <= n  && arr[minIdx] < target){
+            answer--;
+        }
         return minIdx;
     }
 
@@ -68,7 +71,7 @@ public class Main {
             }
 
         }
-        if(minIdx != n+1 && arr[minIdx] == target){
+        if(minIdx >= 1 && minIdx <= n  && arr[minIdx] == target){
             answer++;
         }
         return minIdx;
