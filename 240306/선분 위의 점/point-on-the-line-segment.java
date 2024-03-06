@@ -21,12 +21,14 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
+        Arrays.sort(arr);
         for(int i = 0; i < m; i++){
             st = new StringTokenizer(br.readLine());
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
             int min = lowerBound(start);
             int max = upperBound(end);
+
             sb.append(max - min + answer).append("\n");
             answer = 0;
         }
