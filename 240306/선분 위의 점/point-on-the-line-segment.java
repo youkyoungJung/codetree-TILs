@@ -24,14 +24,30 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
-
-            int min = upperBound(start);
+            int min = lowerBound(start);
             int max = upperBound(end);
-
             sb.append(max - min).append("\n");
         }
         System.out.println(sb.toString());
-        
+
+    }
+
+    public static int lowerBound(int target){
+        int left = 1;
+        int right = n;
+        int minIdx = n+1;
+
+        while(left <= right){
+            int  mid = (left + right) / 2;
+
+            if(arr[mid] >= target){
+                right = mid - 1;
+                minIdx = Math.min(minIdx, mid);
+            }else{
+                left = mid + 1;
+            }
+        }
+        return minIdx;
     }
 
     public static int upperBound(int target){
@@ -41,16 +57,16 @@ public class Main {
 
         while(left <= right){
             int mid = (left + right) / 2;
-
             if(arr[mid] > target){
                 right = mid - 1;
                 minIdx = Math.min(minIdx, mid);
-            }else{
+            }
+            else{
                 left = mid + 1;
             }
 
         }
         return minIdx;
-       
+
     }
 }
