@@ -44,7 +44,7 @@ public class Main {
 
         }
 
-        if(arr[minIdx] != target){
+        if(minIdx <= 0 || minIdx > n || arr[minIdx] != target){
             minIdx = -1;
         }
         return minIdx;
