@@ -2,9 +2,10 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static Long[] arr;
+    static int[] arr;
     static int n;
     static StringBuilder sb = new StringBuilder();
+    static int answer = 0;
 
     public static void main(String[] args) throws IOException {
         // 여기에 코드를 작성해주세요.
@@ -14,10 +15,10 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        arr = new Long[n + 1];
+        arr = new int[n + 1];
         st = new StringTokenizer(br.readLine());
         for(int i = 1; i <= n; i++){
-            arr[i] = Long.parseLong(st.nextToken());
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
         for(int i = 0; i < m; i++){
@@ -26,7 +27,8 @@ public class Main {
             int end = Integer.parseInt(st.nextToken());
             int min = lowerBound(start);
             int max = upperBound(end);
-            sb.append(max - min).append("\n");
+            sb.append(max - min + answer).append("\n");
+            answer = 0;
         }
         System.out.println(sb.toString());
 
@@ -38,13 +40,13 @@ public class Main {
         int minIdx = n+1;
 
         while(left <= right){
-            long mid = (long) ((left + right) / 2);
+            int  mid = (left + right) / 2;
 
-            if(arr[(int) mid] >= target){
-                right = (int) (mid - 1);
-                minIdx = (int) Math.min(minIdx, mid);
+            if(arr[mid] >= target){
+                right = mid - 1;
+                minIdx = Math.min(minIdx, mid);
             }else{
-                left = (int) (mid + 1);
+                left = mid + 1;
             }
         }
         return minIdx;
@@ -56,15 +58,18 @@ public class Main {
         int minIdx = n+1;
 
         while(left <= right){
-            long mid = (long) ((left + right) / 2);            
-            if(arr[(int)mid] > target){
-                right = (int) (mid - 1);
-                minIdx = (int) Math.min(minIdx, mid);
+            int mid = (left + right) / 2;
+            if(arr[mid] > target){
+                right = mid - 1;
+                minIdx = Math.min(minIdx, mid);
             }
             else{
-                left = (int) (mid + 1);
+                left = mid + 1;
             }
 
+        }
+        if(minIdx != n+1 && arr[minIdx] == target){
+            answer++;
         }
         return minIdx;
 
