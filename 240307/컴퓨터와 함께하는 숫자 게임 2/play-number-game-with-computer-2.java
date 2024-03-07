@@ -6,17 +6,16 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // 여기에 코드를 작성해주세요.
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         m = Long.parseLong(br.readLine()); //13이하의 수
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int a = Integer.parseInt(st.nextToken());
-        int b = Integer.parseInt(st.nextToken());
+        long a = Long.parseLong(st.nextToken());
+        long b = Long.parseLong(st.nextToken());
 
         long max = Long.MIN_VALUE;
         long min = Long.MAX_VALUE;
 
-        for(int i = a; i <= b; i++){
+        for(long i = a; i <= b; i++){
             long res = binarySearch(i);
             if(max < res){
                 max = res;
@@ -31,7 +30,7 @@ public class Main {
 
     }
 
-    public static long binarySearch(int target){
+    public static long binarySearch(long target){
         long left = 1;
         long right = m;
         long cnt = 1;
