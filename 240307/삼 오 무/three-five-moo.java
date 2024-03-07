@@ -8,7 +8,7 @@ public class Main {
         int target = Integer.parseInt(br.readLine());
 
         int left = 1;
-        int right = 16;
+        int right = target*5;
 
         while(left <= right){
             int mid = (left + right) / 2;
@@ -37,3 +37,4 @@ public class Main {
         return cnt;
     }
 }
+//1815862
