@@ -9,20 +9,21 @@ public class Main {
 
         int left = 1;
         int right = Integer.MAX_VALUE;
+        int midIdx = Integer.MAX_VALUE;
 
         while(left <= right){
             int mid = (left + right) / 2;
 
             int counting = countNum(mid);
-            if(counting == target){
-                System.out.println(mid);
-                return;
-            }else if(counting > target){
+            if(counting >= target){
+                midIdx = Math.min(midIdx, right);
                 right = mid - 1;
             }else{
                 left = mid + 1;
             }
         }
+
+        System.out.println(midIdx);
     }
 
     public static int countNum(int target){
