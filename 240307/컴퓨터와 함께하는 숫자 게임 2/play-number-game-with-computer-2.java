@@ -13,11 +13,11 @@ public class Main {
         int a = Integer.parseInt(st.nextToken());
         int b = Integer.parseInt(st.nextToken());
 
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
+        long max = Long.MIN_VALUE;
+        long min = Long.MAX_VALUE;
 
         for(int i = a; i <= b; i++){
-            int res = binarySearch(i);
+            long res = binarySearch(i);
             if(max < res){
                 max = res;
             }
@@ -31,10 +31,10 @@ public class Main {
 
     }
 
-    public static int binarySearch(int target){
+    public static long binarySearch(int target){
         long left = 1;
         long right = m;
-        int cnt = 1;
+        long cnt = 1;
 
         while(left <= right){
             long mid = (left+right)/2;
