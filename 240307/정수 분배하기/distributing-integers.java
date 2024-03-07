@@ -15,11 +15,11 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
         arr = new int[n];
         int left = 1;
-        int right = Integer.MAX_VALUE;
+        int right = Integer.MIN_VALUE;
 
         for(int i = 0; i < n; i++){
             arr[i] = Integer.parseInt(br.readLine());
-            right = Math.min(right, arr[i]);
+            right = Math.max(right, arr[i]);
         }
 
         int answer = Integer.MIN_VALUE;
