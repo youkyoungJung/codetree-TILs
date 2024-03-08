@@ -9,21 +9,22 @@ public class Main {
 
         int left = 1;
         int right = Integer.MAX_VALUE;
-        int midIdx = Integer.MAX_VALUE;
+        int maxIdx = Integer.MIN_VALUE;
 
         while(left <= right){
             int mid = (left + right) / 2;
 
             int counting = countNum(mid);
             if(counting >= target){
-                midIdx = Math.min(midIdx, right);
+                maxIdx = Math.max(maxIdx, right);
                 right = mid - 1;
             }else{
                 left = mid + 1;
             }
+
         }
 
-        System.out.println(midIdx);
+        System.out.println(left);
     }
 
     public static int countNum(int target){
@@ -31,5 +32,5 @@ public class Main {
     }
 }
 //968460, 1815862
-
 //993859, 1863484
+//955230 ,1791056
