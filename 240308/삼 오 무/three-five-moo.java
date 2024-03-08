@@ -26,7 +26,7 @@ public class Main {
     }
 
     public static boolean checked(int mid){
-        int res = mid - (mid / 3 + mid / 5 - mid / 15);
+        int res = mid - mid / 3 - mid / 5 + mid / 15;
         return res >= target;
     }
 }
