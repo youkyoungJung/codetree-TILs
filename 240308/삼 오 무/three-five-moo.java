@@ -9,11 +9,11 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         target = Integer.parseInt(br.readLine());
 
-        int left = 0;
-        int right = Integer.MAX_VALUE;
+        long left = 0;
+        long right = Integer.MAX_VALUE;
 
         while(left+1 < right){
-            int mid = (left + right) / 2;
+            long mid = (left + right) / 2;
 
             if(checked(mid)){
                 right = mid;
@@ -25,11 +25,12 @@ public class Main {
         System.out.println(right);
     }
 
-    public static boolean checked(int mid){
-        int res = mid - mid / 3 - mid / 5 + mid / 15;
+    public static boolean checked(long mid){
+        long res = mid - mid / 3 - mid / 5 + mid / 15;
         return res >= target;
     }
 }
 //968460, 1815862
 //993859, 1863484
 //955230 ,1791056
+//936231426, 1755433922
