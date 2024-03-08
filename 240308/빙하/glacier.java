@@ -5,7 +5,7 @@ import org.w3c.dom.Node;
 
 public class Main {
 
-	static int N, M;
+	static int N, M, cnt;
 	static int[][] graph, dir = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 	static boolean[][] visited;
 	static ArrayList<Node> water = new ArrayList<>();
@@ -27,7 +27,6 @@ public class Main {
 		M = Integer.parseInt(st.nextToken());
 
 		graph = new int[N][M];
-		visited = new boolean[N][M];
 
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -36,45 +35,29 @@ public class Main {
 				graph[i][j] = n;
 			}
 		}
-
-
-		//가장자리 구하기
-		bfs(0, 0);
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				if (visited[i][j])
-					water.add(new Node(i, j));
-			}
-		}
-
-		// print();
-		// System.out.println("water = " + water.size());
-
-		int t = -1;
-		int cnt = 40001;
-		while (!water.isEmpty()) {
+		int t = 0;
+		int cnt = 0;
+		while (!isMelted()) {
 			t++;
-			water = bfs(water);
-			// print();
-			// System.out.println("water.size() = " + water.size());
-			if(water.isEmpty())
-				break;
-			cnt = water.size();
+			bfs();
+			cnt = melt();
 		}
 		System.out.println(t + " " + cnt);
 
+
 	}
 
-	private static void bfs(int r, int c) {
+	public static void bfs() {
+		visited = new boolean[N][M];
 		Queue<Node> que = new LinkedList<>();
-		que.add(new Node(r, c));
-		visited[r][c] = true;
+		que.add(new Node(0, 0 ));
+		visited[0][0] = true;
 		while (!que.isEmpty()) {
 			Node poll = que.poll();
 			for (int i = 0; i < 4; i++) {
 				int nr = poll.r + dir[i][0];
 				int nc = poll.c + dir[i][1];
-				if (inGraph(nr, nc) && graph[nr][nc] == 0 && !visited[nr][nc]) {
+				if (inGraph(nr, nc) && !visited[nr][nc] && graph[nr][nc] == 0) {
 					visited[nr][nc] = true;
 					que.add(new Node(nr, nc));
 				}
@@ -82,23 +65,41 @@ public class Main {
 		}
 	}
 
-	private static ArrayList<Node> bfs(ArrayList<Node> list) {
-		Queue<Node> que = new LinkedList<>(list);
-		ArrayList<Node> newWater = new ArrayList<>();
+	public static int melt() {
+		Queue<Node> que = new LinkedList<>();
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				if (visited[i][j]) {
+					que.add(new Node(i, j));
+				}
+			}
+		}
+		int cnt = 0;
 		while (!que.isEmpty()) {
 			Node poll = que.poll();
 			for (int i = 0; i < 4; i++) {
 				int nr = poll.r + dir[i][0];
 				int nc = poll.c + dir[i][1];
-				if (inGraph(nr, nc) && graph[nr][nc] == 1 && !visited[nr][nc]) {
+				if (inGraph(nr, nc) && !visited[nr][nc] && graph[nr][nc] == 1) {
 					visited[nr][nc] = true;
 					graph[nr][nc] = 0;
-					newWater.add(new Node(nr, nc));
+					cnt++;
 				}
 			}
 		}
-		return newWater;
+		return cnt;
+	}
 
+	public static boolean isMelted() {
+		boolean melted = true;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				if(graph[i][j] == 1){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public static boolean inGraph(int r, int c) {
@@ -108,6 +109,12 @@ public class Main {
 	public static void print() {
 		for (int i = 0; i < N; i++) {
 			System.out.println(Arrays.toString(graph[i]));
+		}
+		System.out.println("+++++++++++++++");
+	}
+	public static void printv() {
+		for (int i = 0; i < N; i++) {
+			System.out.println(Arrays.toString(visited[i]));
 		}
 		System.out.println("+++++++++++++++");
 	}
