@@ -49,7 +49,6 @@ public class Main {
             graph.get(s).add(new Edge(e, v));
             graph.get(e).add(new Edge(s, v));
         }
-        nums[k] = 0;
         dijkstra(k);
 //        System.out.println(Arrays.toString(nums));
         StringBuilder sb = new StringBuilder();
@@ -65,6 +64,7 @@ public class Main {
 
     public static void dijkstra(int n){
 
+        nums[n] = 0;
         PriorityQueue<Edge> queue = new PriorityQueue<>();
         queue.offer(new Edge(n, 0));
 
@@ -72,12 +72,12 @@ public class Main {
             Edge current = queue.poll();
 
             if(isVisited[current.num]) continue;
-            isVisited[current.num] = true;
 
             for(Edge next : graph.get(current.num)){
                 if(nums[next.num] > nums[current.num] + next.val){
                     nums[next.num] = nums[current.num] + next.val;
                     queue.offer(new Edge(next.num, next.val));
+                    isVisited[current.num] = true;
                 }
             }
         }
