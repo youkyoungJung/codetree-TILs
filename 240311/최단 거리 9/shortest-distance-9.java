@@ -19,7 +19,7 @@ public class Main {
 
     static ArrayList<ArrayList<Edge>> graph;
     static int[] nums;
-    static int[] answer;
+    static int[] path;
     static int INF = (int)1e9;
     static StringBuilder sb = new StringBuilder();
     static int index = 0;
@@ -36,7 +36,7 @@ public class Main {
             graph.add(new ArrayList<>());
         }
         nums = new int[n+1];
-        answer = new int[n+1];
+        path = new int[n+1];
         Arrays.fill(nums, INF);
 
         for(int i = 0; i < m; i++){
@@ -54,8 +54,17 @@ public class Main {
 
         sb.append(dijkstra(a, b)).append("\n");
 
-        for(int i = index-1; i >= 0; i--){
-            sb.append(answer[i]).append(" ");
+//        System.out.println(Arrays.toString(path));
+        int x = a;
+        ArrayList<Integer> vertices = new ArrayList<>();
+        vertices.add(x);
+        while(x != b) {
+            x = path[x];
+            vertices.add(x);
+        }
+
+        for(int i = 0; i < vertices.size(); i++){
+            sb.append(vertices.get(i)).append(" ");
         }
         System.out.println(sb.toString());
     }
@@ -70,8 +79,6 @@ public class Main {
 
             if(current.val != nums[current.num]) continue;
 
-            answer[index++] = current.num;
-
             if(current.num == start){
                 return current.val;
             }
@@ -82,7 +89,7 @@ public class Main {
                 int target = nums[current.num] + next.val;
                 if(nums[next.num] > target){
                     nums[next.num] = target;
-
+                    path[next.num] = current.num;
                     pq.offer(new Edge(next.num, target));
                 }
             }
