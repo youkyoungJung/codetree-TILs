@@ -45,6 +45,7 @@ public class Main {
             int e = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
             graph.get(e).add(new Edge(s, v));
+            graph.get(s).add(new Edge(e, v));
         }
 
         st = new StringTokenizer(br.readLine());
@@ -70,7 +71,7 @@ public class Main {
             if(current.val != nums[current.num]) continue;
 
             answer[index++] = current.num;
-        
+
             if(current.num == start){
                 return current.val;
             }
@@ -81,7 +82,7 @@ public class Main {
                 int target = nums[current.num] + next.val;
                 if(nums[next.num] > target){
                     nums[next.num] = target;
-                    
+
                     pq.offer(new Edge(next.num, target));
                 }
             }
@@ -91,3 +92,5 @@ public class Main {
 
     }
 }
+//3
+//1 4 3 5
