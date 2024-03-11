@@ -71,13 +71,13 @@ public class Main {
         while(!queue.isEmpty()){
             Edge current = queue.poll();
 
-            if(isVisited[current.num]) continue;
+//            if(isVisited[current.num]) continue;
 
             for(Edge next : graph.get(current.num)){
                 if(nums[next.num] > nums[current.num] + next.val){
                     nums[next.num] = nums[current.num] + next.val;
                     queue.offer(new Edge(next.num, next.val));
-                    isVisited[current.num] = true;
+//                    isVisited[current.num] = true;
                 }
             }
         }
