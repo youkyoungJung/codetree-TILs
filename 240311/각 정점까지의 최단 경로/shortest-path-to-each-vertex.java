@@ -71,15 +71,17 @@ public class Main {
         while(!queue.isEmpty()){
             Edge current = queue.poll();
 
-//            if(isVisited[current.num]) continue;
+            if(current.val != nums[current.num]) continue;
 
-            for(Edge next : graph.get(current.num)){
-                if(nums[next.num] > nums[current.num] + next.val){
-                    nums[next.num] = nums[current.num] + next.val;
-                    queue.offer(new Edge(next.num, next.val));
-//                    isVisited[current.num] = true;
-                }
-            }
+           for(int i = 0; i < graph.get(current.num).size(); i++){
+               Edge next = graph.get(current.num).get(i);
+
+               int newDist = nums[current.num] + next.val;
+               if(nums[next.num] > newDist){
+                   nums[next.num] = newDist;
+                   queue.offer(new Edge(next.num, newDist));
+               }
+           }
         }
     }
 }
