@@ -13,7 +13,7 @@ public class Main {
         while(start <= end){
             long mid = (start + end) / 2;
             if(mid *(mid+1) /2 <= s){
-                answer = mid;
+                answer = Math.max(mid, answer);
                 start = mid+1;
             } else{
                 end = mid-1;
