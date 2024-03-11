@@ -14,9 +14,9 @@ public class Main {
             long mid = (start + end) / 2;
             if(mid *(mid+1) /2 <= s){
                 answer = mid;
-                start = start+1;
+                start = mid+1;
             } else{
-                end = end-1;
+                end = mid-1;
             }
         }
 
