@@ -19,7 +19,7 @@ public class Main {
             arr[i] = x;
         }
         int left = 1, right = 100001;
-        int answer = -1;
+        int answer = 0;
         while(left <= right){
             int mid = (left + right) / 2;
             if(div(mid) >= m ){
