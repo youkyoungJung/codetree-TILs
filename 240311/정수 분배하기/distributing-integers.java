@@ -18,7 +18,7 @@ public class Main {
             int x = Integer.parseInt(br.readLine());
             arr[i] = x;
         }
-        int left = 0, right = 100001;
+        int left = 1, right = 100001;
         int answer = -1;
         while(left <= right){
             int mid = (left + right) / 2;
