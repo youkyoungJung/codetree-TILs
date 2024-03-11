@@ -11,7 +11,7 @@ public class Main {
             this.val = val;
         }
 
-        public int compareTo(Edge o){?
+        public int compareTo(Edge o){
             if(this.val == o.val){
                 return Integer.compare(this.num, o.num);
             }
@@ -54,8 +54,8 @@ public class Main {
         int a = Integer.parseInt(st.nextToken());
         int b = Integer.parseInt(st.nextToken());
 
-        System.out.println(dijkstra(a, b));
-        System.out.println(sb.toString());
+        System.out.println(dijkstra(5, 1));
+        System.out.println(sb.reverse().toString().trim());
 
     }
 
@@ -79,8 +79,6 @@ public class Main {
                 if(nums[next.num] > target){
                     nums[next.num] = target;
                     pq.offer(new Edge(next.num, target));
-
-                    
                 }
             }
         }
