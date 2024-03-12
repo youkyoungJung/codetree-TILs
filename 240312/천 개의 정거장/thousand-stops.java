@@ -11,10 +11,10 @@ public class Main {
 	static class TimeAndCost implements Comparable<TimeAndCost> {
 		int time;
 		int root;
-		int cost;
+		long cost;
 		int nodeNum;
 
-		public TimeAndCost(int time, int root, int cost, int nodeNum) {
+		public TimeAndCost(int time, int root, long cost, int nodeNum) {
 			this.time = time;
 			this.root = root;
 			this.cost = cost;
@@ -26,7 +26,7 @@ public class Main {
 			if (this.cost == o.cost) {
 				return this.time-o.time;
 			}
-			return this.cost - o.cost;
+			return Long.compare(this.cost,o.cost);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class Main {
 		for (int i = 1; i <= 1000; i++) {
 			nodes[i] = new Node(0, 0, 0, null);
 		}
-		int[][] minCost = new int[1001][1001];
+		long[][] minCost = new long[1001][1001];
 		for (int i = 1; i <= 1000; i++) {
 			Arrays.fill(minCost[i], 2000000000);
 		}
@@ -84,8 +84,8 @@ public class Main {
 			q.add(new TimeAndCost(1, cur.curRoot, cur.curCost, cur.nodeNum));
 		}
 
-		int resultCost = 2_000_000_000;
-		int resultTime = 2_000_000_000;
+		long resultCost = 200_000_000_000L;
+		long resultTime = 200_000_000_000L;
 
 		while (!q.isEmpty()) {
 			TimeAndCost cur = q.poll();
@@ -99,7 +99,7 @@ public class Main {
 			}
 
 			for (Node tmp = nodes[cNum].next; tmp != null; tmp = tmp.next) {
-				int cmpCost = 0;
+				long cmpCost = 0;
 				int cmpRoot = 0;
 
 				if (tmp.curRoot == cur.root) {//같은 노선이면 돈을 더 내지 않음
