@@ -74,6 +74,8 @@ public class Main {
 
 				nodes[from].next = new Node(i,cost, to, nodes[from].next);
 
+				minCost[from][to]=Math.min(minCost[from][to],cost);
+
 				from = to;
 			}
 		}//입력 종료
@@ -109,13 +111,14 @@ public class Main {
 					cmpCost = cur.cost + tmp.curCost;
 					cmpRoot = tmp.curRoot;
 				}
-				//time root cost num 순
+				// time root cost num 순
 				if(minCost[cur.nodeNum][tmp.nodeNum]<cmpCost){
 					continue;
 				}else if(minCost[cur.nodeNum][tmp.nodeNum]>=cmpCost){
 					minCost[cur.nodeNum][tmp.nodeNum]=cmpCost;
-					q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
+				 q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
 				}
+				// q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
 			}
 		}
 		if(resultCost==20_000_000_000_000L&&resultTime==20_000_000_000_000L)
