@@ -2,43 +2,26 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static class Edge implements Comparable<Edge>{
-        int num;
-        int val;
-
-        public Edge(int num, int val){
-            this.num = num;
-            this.val = val;
-        }
-
-        public int compareTo(Edge o){
-            if(this.val == o.val){
-                return Integer.compare(this.num, o.num);
-            }
-            return Integer.compare(this.val, o.val);
-        }
-    }
-
-    static ArrayList<ArrayList<Edge>> graph;
-    static int[] path;
     static int[] nums;
     static int INF = (int)1e9;
-    static StringBuilder sb = new StringBuilder();
+
+    static int[][] graph;
+    static int n;
+    static boolean[] isVisited;
 
     public static void main(String[] args)throws IOException {
         // 여기에 코드를 작성해주세요.
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
+        StringBuilder sb = new StringBuilder();
+
+        n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        path = new int[n+1];
         nums = new int[n+1];
+        isVisited = new boolean[n+1];
         Arrays.fill(nums, INF);
-        graph = new ArrayList<>(n+1);
-        for(int i = 0; i <= n; i++){
-            graph.add(new ArrayList<>());
-        }
+        graph = new int[n+1][n+1];
 
         for(int i = 0; i < m; i++){
             st = new StringTokenizer(br.readLine());
@@ -46,44 +29,54 @@ public class Main {
             int e = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
 
-            graph.get(s).add(new Edge(e, v));
-            graph.get(e).add(new Edge(s, v));
+            graph[s][e] = v;
+            graph[e][s] = v;
         }
 
         st = new StringTokenizer(br.readLine());
         int a = Integer.parseInt(st.nextToken());
         int b = Integer.parseInt(st.nextToken());
 
-        System.out.println(dijkstra(5, 1));
-        System.out.println(sb.reverse().toString().trim());
+        dijkstra(b);
+        System.out.println(nums[a]);
+
+        int x = a;
+        sb.append(x).append(" ");
+        while(x != b){
+            for(int i = 1; i <= n; i++){
+                if(graph[i][x] == 0) continue;
+                if(nums[i] + graph[i][x] == nums[x]){
+                    x = i;
+                    break;
+                }
+            }
+            sb.append(x).append(" ");
+        }
+        System.out.println(sb.toString());
 
     }
 
-    public static int dijkstra(int start, int end){
+    public static void dijkstra(int start){
         nums[start] = 0;
-        PriorityQueue<Edge> pq = new PriorityQueue<>();
-        pq.offer(new Edge(start, 0));
 
-        while(!pq.isEmpty()){
-            Edge current = pq.poll();
+        for(int i = 1; i <= n; i++){
+            int minIdx = -1;
+            for(int j = 1; j <= n; j++){
+                if(isVisited[j]) continue;
 
-            if(nums[current.num]!=current.val) continue;
-            sb.append(current.num).append(" ");
-            if(end == current.num){ 
-                return current.val;
+                if(minIdx == -1 || nums[minIdx] > nums[j]){
+                    minIdx = j;
+                }
             }
-            for(int i = 0; i < graph.get(current.num).size(); i++){
-                Edge next = graph.get(current.num).get(i);
 
-                int target = nums[current.num] + next.val;
-                if(nums[next.num] > target){
-                    nums[next.num] = target;
-                    pq.offer(new Edge(next.num, target));
+            isVisited[minIdx] = true;
+            for(int j = 1; j <= n; j++){
+                if(graph[minIdx][j] == 0) continue;
+
+                if(nums[j] > nums[minIdx] + graph[minIdx][j]){
+                    nums[j] = nums[minIdx] + graph[minIdx][j];
                 }
             }
         }
-
-        return -1;
-
     }
 }
