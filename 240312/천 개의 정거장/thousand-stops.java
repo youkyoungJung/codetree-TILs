@@ -56,10 +56,9 @@ public class Main {
 		for (int i = 1; i <= 1000; i++) {
 			nodes[i] = new Node(0, 0, 0, null);
 		}
-		long[][] minCost = new long[1001][1001];
-		for (int i = 1; i <= 1000; i++) {
-			Arrays.fill(minCost[i], 20_000_000_000_000L);
-		}
+		long[] minCost = new long[1001];
+		Arrays.fill(minCost, 20_000_000_000_000L);
+
 
 		for (int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -74,7 +73,7 @@ public class Main {
 
 				nodes[from].next = new Node(i,cost, to, nodes[from].next);
 
-				minCost[from][to]=Math.min(minCost[from][to],cost);
+				//minCost[from][to]=Math.min(minCost[from][to],cost);
 
 				from = to;
 			}
@@ -112,11 +111,11 @@ public class Main {
 					cmpRoot = tmp.curRoot;
 				}
 				// time root cost num 순
-				if(minCost[cur.nodeNum][tmp.nodeNum]<cmpCost){
+				if(minCost[tmp.nodeNum]<cmpCost){
 					continue;
-				}else if(minCost[cur.nodeNum][tmp.nodeNum]>=cmpCost){
-					minCost[cur.nodeNum][tmp.nodeNum]=cmpCost;
-				 q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
+				}else if(minCost[tmp.nodeNum]>=cmpCost){
+					minCost[tmp.nodeNum]=cmpCost;
+				 	q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
 				}
 				// q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
 			}
