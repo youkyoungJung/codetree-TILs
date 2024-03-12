@@ -110,6 +110,11 @@ public class Main {
 					cmpRoot = tmp.curRoot;
 				}
 				//time root cost num 순
+				if(minCost[cur.nodeNum][tmp.nodeNum]<cmpCost){
+					continue;
+				}else if(minCost[cur.nodeNum][tmp.nodeNum]>cmpCost){
+					minCost[cur.nodeNum][tmp.nodeNum]=cmpCost;
+				}
 				q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
 			}
 		}
