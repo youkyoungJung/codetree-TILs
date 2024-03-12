@@ -58,7 +58,7 @@ public class Main {
 		}
 		long[][] minCost = new long[1001][1001];
 		for (int i = 1; i <= 1000; i++) {
-			Arrays.fill(minCost[i], 2000000000);
+			Arrays.fill(minCost[i], 20_000_000_000_000L);
 		}
 
 		for (int i = 1; i <= N; i++) {
@@ -84,8 +84,8 @@ public class Main {
 			q.add(new TimeAndCost(1, cur.curRoot, cur.curCost, cur.nodeNum));
 		}
 
-		long resultCost = 200_000_000_000L;
-		long resultTime = 200_000_000_000L;
+		long resultCost = 20_000_000_000_000L;
+		long resultTime = 20_000_000_000_000L;
 
 		while (!q.isEmpty()) {
 			TimeAndCost cur = q.poll();
@@ -118,7 +118,7 @@ public class Main {
 				q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
 			}
 		}
-		if(resultCost==2_000_000_000&&resultTime==2_000_000_000)
+		if(resultCost==20_000_000_000_000L&&resultTime==20_000_000_000_000L)
 			System.out.println("-1 -1");
 		else
 			System.out.println(resultCost + " " + resultTime);
