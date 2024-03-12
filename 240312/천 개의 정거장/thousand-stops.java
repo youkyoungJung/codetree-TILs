@@ -57,11 +57,9 @@ public class Main {
 		}
 
 		long[][] minCost = new long[1001][1001];
-		//long[][] minTime = new long[1001][1001];
 
 		for(int i=1;i<=1000;i++) {
 			Arrays.fill(minCost[i], 200_000_000_000_000L);
-			//Arrays.fill(minTime[i], 200_000_000_000_000L);
 		}
 
 		for (int i = 1; i <= N; i++) {
@@ -70,20 +68,11 @@ public class Main {
 			int stationCount = Integer.parseInt(st.nextToken());
 
 			st = new StringTokenizer(br.readLine());
-
 			int from = Integer.parseInt(st.nextToken());
-			boolean flag=false;
+
 			for (int j = 0; j < stationCount - 1; j++) {
 				int to = Integer.parseInt(st.nextToken());
 				nodes[from].next = new Node(i, cost, to, nodes[from].next);
-
-				// if(from==A){
-				// 	flag=true;
-				// }
-				// if(flag){
-				// 	minCost[from][to]=cost;
-				// }
-
 				from = to;
 			}
 		}//입력 종료
@@ -99,7 +88,7 @@ public class Main {
 
 		while (!q.isEmpty()) {
 			TimeAndCost cur = q.poll();
-			// System.out.println(cur.root+" "+cur.nodeNum+" "+cur.cost);
+
 			int cNum = cur.nodeNum;
 			if (cNum == B) {
 				resultTime = cur.time;
@@ -114,11 +103,8 @@ public class Main {
 				if (tmp.curRoot == cur.root) {//같은 노선이면 돈을 더 내지 않음
 					cmpCost = cur.cost;
 					cmpRoot = cur.root;
-					if (minCost[cur.nodeNum][tmp.nodeNum] > cmpCost) {//더 적은 비용으로 갈 수 있을 때
+					if (minCost[cur.nodeNum][tmp.nodeNum] >= cmpCost) {//더 적은 비용으로 갈 수 있을 때는 같은 노선일경우 고려해주어야함
 						minCost[cur.nodeNum][tmp.nodeNum] = cmpCost;
-						//minTime[cur.nodeNum][tmp.nodeNum]=cur.time+1;
-						q.add(new TimeAndCost(cur.time + 1, cmpRoot, minCost[cur.nodeNum][tmp.nodeNum], tmp.nodeNum));
-					}else if(minCost[cur.nodeNum][tmp.nodeNum] == cmpCost){
 						q.add(new TimeAndCost(cur.time + 1, cmpRoot, minCost[cur.nodeNum][tmp.nodeNum], tmp.nodeNum));
 					}
 				} else {//다른 노선일 경우
@@ -126,12 +112,9 @@ public class Main {
 					cmpRoot = tmp.curRoot;
 					if (minCost[cur.nodeNum][tmp.nodeNum] > cmpCost) {//더 적은 비용으로 갈 수 있을 때
 						minCost[cur.nodeNum][tmp.nodeNum] = cmpCost;
-						//minTime[cur.nodeNum][tmp.nodeNum]=cur.time+1;
 						q.add(new TimeAndCost(cur.time + 1, tmp.curRoot, minCost[cur.nodeNum][tmp.nodeNum], tmp.nodeNum));
 					}
 				}
-				// time root cost num 순
-
 			}
 		}
 		if (resultCost == 200_000_000_000_000L && resultTime == 200_000_000_000_000L)
