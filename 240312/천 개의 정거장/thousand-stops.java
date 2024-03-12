@@ -113,7 +113,9 @@ public class Main {
 				q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
 			}
 		}
-
-		System.out.println(resultCost + " " + resultTime);
+		if(resultCost==2_000_000_000&&resultTime==2_000_000_000)
+			System.out.println("-1 -1");
+		else
+			System.out.println(resultCost + " " + resultTime);
 	}
 }
