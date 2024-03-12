@@ -23,7 +23,7 @@ public class Main {
 
 		@Override
 		public int compareTo(TimeAndCost o) {
-			if (this.cost == o.cost) {
+			if(this.cost==o.cost){
 				return this.time-o.time;
 			}
 			return Long.compare(this.cost,o.cost);
@@ -31,12 +31,12 @@ public class Main {
 	}
 
 	static class Node {
-		int curCost;
+		long curCost;
 		int curRoot;
 		int nodeNum;
 		Node next;
 
-		public Node(int curRoot, int curCost, int nodeNum, Node next) {
+		public Node(int curRoot, long curCost, int nodeNum, Node next) {
 			this.curRoot = curRoot;
 			this.curCost = curCost;
 			this.nodeNum = nodeNum;
@@ -56,13 +56,13 @@ public class Main {
 		for (int i = 1; i <= 1000; i++) {
 			nodes[i] = new Node(0, 0, 0, null);
 		}
-		long[] minCost = new long[1001];
-		Arrays.fill(minCost, 20_000_000_000_000L);
-
-
+		long[][] minCost = new long[1001][1001];
+		for(int i=1;i<=1000;i++) {
+			Arrays.fill(minCost[i], 200_000_000_000_000L);
+		}
 		for (int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine());
-			int cost = Integer.parseInt(st.nextToken());
+			long cost = Long.parseLong(st.nextToken());
 			int stationCount = Integer.parseInt(st.nextToken());
 
 			st = new StringTokenizer(br.readLine());
@@ -71,8 +71,7 @@ public class Main {
 			for (int j = 0; j < stationCount - 1; j++) {
 				int to = Integer.parseInt(st.nextToken());
 
-				nodes[from].next = new Node(i,cost, to, nodes[from].next);
-
+				nodes[from].next = new Node(i, cost, to, nodes[from].next);
 				//minCost[from][to]=Math.min(minCost[from][to],cost);
 
 				from = to;
@@ -85,17 +84,20 @@ public class Main {
 			q.add(new TimeAndCost(1, cur.curRoot, cur.curCost, cur.nodeNum));
 		}
 
-		long resultCost = 20_000_000_000_000L;
-		long resultTime = 20_000_000_000_000L;
+		long resultCost = 200_000_000_000_000L;
+		long resultTime = 200_000_000_000_000L;
 
 		while (!q.isEmpty()) {
 			TimeAndCost cur = q.poll();
-
+			// System.out.println(cur.root+" "+cur.nodeNum+" "+cur.cost);
 			int cNum = cur.nodeNum;
-
 			if (cNum == B) {
+				// if(resultCost>=cur.cost){
+				// 	resultTime = Math.min(resultTime,cur.time);
+				// 	resultCost = cur.cost;
+				// }
 				resultTime = cur.time;
-				resultCost=cur.cost;
+				resultCost = cur.cost;
 				break;
 			}
 
@@ -106,21 +108,21 @@ public class Main {
 				if (tmp.curRoot == cur.root) {//같은 노선이면 돈을 더 내지 않음
 					cmpCost = cur.cost;
 					cmpRoot = cur.root;
-				} else {
+				} else {//다른 노선일 경우
 					cmpCost = cur.cost + tmp.curCost;
 					cmpRoot = tmp.curRoot;
 				}
 				// time root cost num 순
-				if(minCost[tmp.nodeNum]<cmpCost){
+				if (minCost[cur.nodeNum][tmp.nodeNum] < cmpCost) {//이미 더 싸게 갈수있는법이 있을 때
 					continue;
-				}else if(minCost[tmp.nodeNum]>=cmpCost){
-					minCost[tmp.nodeNum]=cmpCost;
-				 	q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
+				} else if (minCost[cur.nodeNum][tmp.nodeNum] >= cmpCost) {
+					minCost[cur.nodeNum][tmp.nodeNum] = cmpCost;
+					q.add(new TimeAndCost(cur.time + 1, cmpRoot, cmpCost, tmp.nodeNum));
 				}
 				// q.add(new TimeAndCost(cur.time + 1,cmpRoot, cmpCost, tmp.nodeNum));
 			}
 		}
-		if(resultCost==20_000_000_000_000L&&resultTime==20_000_000_000_000L)
+		if (resultCost == 200_000_000_000_000L && resultTime == 200_000_000_000_000L)
 			System.out.println("-1 -1");
 		else
 			System.out.println(resultCost + " " + resultTime);
