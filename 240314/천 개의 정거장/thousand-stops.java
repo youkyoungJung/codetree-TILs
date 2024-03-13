@@ -118,9 +118,7 @@ public class Main {
 		}
 
 		dijkstra(A);
-		for (int i = 1; i < 6; i++) {
-			System.out.println(dist[i]);
-		}
+
 		if (dist[B].cost == Long.MAX_VALUE) {
 			System.out.println("-1 -1");
 		} else {
