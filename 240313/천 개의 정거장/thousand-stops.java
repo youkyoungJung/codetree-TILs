@@ -52,9 +52,11 @@ public class Main {
 				if (dijk[node[0]] > now[1] + node[2]) {
 					dijk[node[0]] = now[1] + node[2];
 					time[node[0]] = time[now[0]] + node[1];
+					pq.add(new int[] {node[0], dijk[node[0]]});
 				} else if (dijk[node[0]] == now[1] + node[2]) {
 					if (time[node[0]] > time[now[0]] + node[1]) {
 						time[node[0]] = time[now[0]] + node[1];
+						pq.add(new int[] {node[0], dijk[node[0]]});
 					}
 				}
 			}
