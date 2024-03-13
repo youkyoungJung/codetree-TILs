@@ -1,13 +1,28 @@
 import java.io.*;
 import java.util.*;
 
+class Node implements Comparable<Node> {
+	int id;
+	long cost;
+	long time;
+
+	public Node(int id, long cost, long time) {
+		this.id = id;
+		this.cost = cost;
+		this.time = time;
+	}
+
+	public int compareTo(Node other) {
+		if (this.cost == other.cost)
+			return Long.compare(this.time, other.time);
+		return Long.compare(this.cost, other.cost);
+	}
+}
+
 public class Main {
 	static int a, b, n;
 	static ArrayList<long[]>[] buses;
-
 	static long[] dijk;
-	static long[] time;
-	static boolean[] fixed;
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -31,63 +46,47 @@ public class Main {
 		}
 
 		dijk = new long[1001];
-		time = new long[1001];
-		fixed = new boolean[1001];
-
 		Arrays.fill(dijk, Long.MAX_VALUE);
-		Arrays.fill(time, -1);
-
 		dijk[a] = 0;
-		time[a] = 0;
-		PriorityQueue<long[]> pq = new PriorityQueue<>((a, b) -> {
-			int comp = Long.compare(a[1], b[1]);
-			if (comp==0) {
-				return Long.compare(a[2], b[2]);
-			} else {
-				return comp;
-			}
-		});
-		pq.add(new long[] {a, 0, 0});
-		while (!pq.isEmpty()) {
-			long[] now = pq.poll();
-			if (fixed[(int)now[0]])
-				continue;
-			fixed[(int)now[0]] = true;
-			if (now[0] == b)
-				break;
 
-			ArrayList<long[]> bus = buses[(int)now[0]];
-			for (long[] node : bus) {
-				if (dijk[(int)node[0]] > now[1] + node[2]) {
-					dijk[(int)node[0]] = now[1] + node[2];
-					time[(int)node[0]] = time[(int)now[0]] + node[1];
-					pq.add(new long[] {node[0], dijk[(int)node[0]], time[(int)node[0]]});
-				} else if (dijk[(int)node[0]] == now[1] + node[2]) {
-					if (time[(int)node[0]] > time[(int)now[0]] + node[1]) {
-						time[(int)node[0]] = time[(int)now[0]] + node[1];
-						pq.add(new long[] {node[0], dijk[(int)node[0]], time[(int)node[0]]});
-					}
+		PriorityQueue<Node> pq = new PriorityQueue<>();
+		pq.add(new Node(a, 0, 0));
+
+		while (!pq.isEmpty()) {
+			Node current = pq.poll();
+			if (current.id == b) {
+				System.out.println(current.cost + " " + current.time);
+				return;
+			}
+
+			if (current.cost > dijk[current.id]) continue;
+
+			for (long[] next : buses[current.id]) {
+				int dest = (int) next[0];
+				long fare = next[2];
+				long time = next[1];
+				long newCost = current.cost + fare;
+				long newTime = current.time + time;
+
+				if (newCost < dijk[dest] || (newCost == dijk[dest] && newTime < dijk[dest])) {
+					dijk[dest] = newCost;
+					pq.add(new Node(dest, newCost, newTime));
 				}
 			}
 		}
-		if (dijk[b] == Long.MAX_VALUE) {
-			System.out.println("-1 -1");
-		} else {
-			System.out.print(dijk[b]);
-			System.out.print(" ");
-			System.out.print(time[b]);
-		}
+
+		System.out.println("-1 -1");
 	}
 
 	private static void addBus(StringTokenizer st, long fare, long size) {
-		int[] bus = new int[(int)size];
+		int[] bus = new int[(int) size];
 		for (int i = 0; i < size; i++) {
 			bus[i] = Integer.parseInt(st.nextToken());
 		}
 
 		for (int i = 0; i < size; i++) {
 			for (int j = i + 1; j < size; j++) {
-				buses[bus[i]].add(new long[] {bus[j], j-i, fare});
+				buses[bus[i]].add(new long[]{bus[j], j - i, fare});
 			}
 		}
 	}
