@@ -1,28 +1,13 @@
 import java.io.*;
 import java.util.*;
 
-class Node implements Comparable<Node> {
-	int id;
-	long cost;
-	long time;
-
-	public Node(int id, long cost, long time) {
-		this.id = id;
-		this.cost = cost;
-		this.time = time;
-	}
-
-	public int compareTo(Node other) {
-		if (this.cost == other.cost)
-			return Long.compare(this.time, other.time);
-		return Long.compare(this.cost, other.cost);
-	}
-}
-
 public class Main {
 	static int a, b, n;
-	static ArrayList<long[]>[] buses;
+	static ArrayList<Node>[] buses;
+
 	static long[] dijk;
+	static long[] time;
+	static boolean[] fixed;
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -46,48 +31,79 @@ public class Main {
 		}
 
 		dijk = new long[1001];
+		time = new long[1001];
+		fixed = new boolean[1001];
+
 		Arrays.fill(dijk, Long.MAX_VALUE);
+		Arrays.fill(time, -1);
+
 		dijk[a] = 0;
-
-		PriorityQueue<Node> pq = new PriorityQueue<>();
-		pq.add(new Node(a, 0, 0));
-
-		while (!pq.isEmpty()) {
-			Node current = pq.poll();
-			if (current.id == b) {
-				System.out.println(current.cost + " " + current.time);
-				return;
+		time[a] = 0;
+		PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> {
+			int comp = Long.compare(a.fare, b.fare);
+			if (comp==0) {
+				return Long.compare(a.time, b.time);
+			} else {
+				return comp;
 			}
+		});
+		pq.add(new Node(a, 0, 0));
+		while (!pq.isEmpty()) {
+			Node now = pq.poll();
+			if (fixed[now.to])
+				continue;
+			fixed[now.to] = true;
+			if (now.to == b)
+				break;
 
-			if (current.cost > dijk[current.id]) continue;
-
-			for (long[] next : buses[current.id]) {
-				int dest = (int) next[0];
-				long fare = next[2];
-				long time = next[1];
-				long newCost = current.cost + fare;
-				long newTime = current.time + time;
-
-				if (newCost < dijk[dest] || (newCost == dijk[dest] && newTime < dijk[dest])) {
-					dijk[dest] = newCost;
-					pq.add(new Node(dest, newCost, newTime));
+			ArrayList<Node> bus = buses[now.to];
+			for (Node node : bus) {
+				int to = node.to;
+				long nodeTime = node.time;
+				long nodeFare = node.fare;
+				if (dijk[to] > now.fare + nodeFare) {
+					dijk[to] = now.fare + nodeFare;
+					time[to] = time[now.to] + nodeTime;
+					pq.add(new Node(to, dijk[to], time[to]));
+				} else if (dijk[to] == now.fare + nodeFare) {
+					if (time[to] > time[now.to] + nodeTime) {
+						time[to] = time[now.to] + nodeTime;
+						pq.add(new Node(to, dijk[to], time[to]));
+					}
 				}
 			}
 		}
-
-		System.out.println("-1 -1");
+		if (dijk[b] == Long.MAX_VALUE) {
+			System.out.println("-1 -1");
+		} else {
+			System.out.print(dijk[b]);
+			System.out.print(" ");
+			System.out.print(time[b]);
+		}
 	}
 
 	private static void addBus(StringTokenizer st, long fare, long size) {
-		int[] bus = new int[(int) size];
+		int[] bus = new int[(int)size];
 		for (int i = 0; i < size; i++) {
 			bus[i] = Integer.parseInt(st.nextToken());
 		}
 
 		for (int i = 0; i < size; i++) {
 			for (int j = i + 1; j < size; j++) {
-				buses[bus[i]].add(new long[]{bus[j], j - i, fare});
+				buses[bus[i]].add(new Node(bus[j], j-i, fare));
 			}
+		}
+	}
+
+	static class Node {
+		int to;
+		long time;
+		long fare;
+
+		public Node(int to, long time, long fare) {
+			this.to = to;
+			this.time = time;
+			this.fare = fare;
 		}
 	}
 }
