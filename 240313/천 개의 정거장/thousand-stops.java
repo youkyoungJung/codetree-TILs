@@ -53,6 +53,8 @@ public class Main {
 			if (fixed[(int)now[0]])
 				continue;
 			fixed[(int)now[0]] = true;
+			if (now[0] == b)
+				break;
 
 			ArrayList<long[]> bus = buses[(int)now[0]];
 			for (long[] node : bus) {
