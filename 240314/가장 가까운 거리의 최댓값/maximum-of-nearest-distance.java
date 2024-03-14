@@ -19,14 +19,18 @@ public class Main {
 
     static ArrayList<ArrayList<Edge>> graph;
     static int[] dist;
+
+    static int[] minDist;
     static HashSet<Integer> nums;
-    static int INF = (int)1e9+1;
+    static int INF = (int)1e9;
+
+    static int n;
 
     public static void main(String[] args) throws IOException {
         // 여기에 코드를 작성해주세요.
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
         graph = new ArrayList<>(n+1);
@@ -34,6 +38,9 @@ public class Main {
             graph.add(new ArrayList<>());
         }
         dist = new int[n+1];
+
+        minDist = new int[n+1];
+        Arrays.fill(minDist, INF);
 
 
         st = new StringTokenizer(br.readLine());
@@ -56,15 +63,20 @@ public class Main {
             graph.get(e).add(new Edge(s, v));
         }
 
+        //a,b,c 다익스트라
+        dijkstra(a);
+        dijkstra(b);
+        dijkstra(c);
+
         int answer = Integer.MIN_VALUE;
         for(int i = 1; i <= n; i++){
-            Arrays.fill(dist, INF);
-            int res = dijkstra(i);
-            answer = Math.max(answer, res);
+            answer = Math.max(answer, minDist[i]);
         }
         System.out.println(answer);
     }
-    public static int dijkstra(int num){
+
+    public static void dijkstra(int num){
+        Arrays.fill(dist, INF);
         dist[num] = 0;
 
         PriorityQueue<Edge> pq = new PriorityQueue<>();
@@ -73,24 +85,24 @@ public class Main {
         while(!pq.isEmpty()){
             Edge current = pq.poll();
 
-            if(dist[current.num] < current.val) continue;
+            if(dist[current.num] != current.val) continue;
 
             for(int i = 0; i < graph.get(current.num).size(); i++){
                 Edge next = graph.get(current.num).get(i);
 
                 if(dist[next.num] > dist[current.num] + next.val){
                     dist[next.num] = dist[current.num] + next.val;
+                    pq.add(new Edge(next.num,  dist[current.num] + next.val));
                 }
             }
         }
 
-//        System.out.println("num:: " + num + Arrays.toString(dist));
-        int answer = Integer.MAX_VALUE;
-        for(int target : nums){
-            if(target !=  num && answer > dist[target]){
-                answer = dist[target];
-            }
+        // 각 지점에 대한 최단거리 값 중 최솟값을 갱신해줍니다.
+        for(int i = 1; i <= n; i++) {
+            minDist[i] = Math.min(minDist[i], dist[i]);
         }
-        return answer;
+//        System.out.println(Arrays.toString(minDist));
+
     }
 }
+//42591
