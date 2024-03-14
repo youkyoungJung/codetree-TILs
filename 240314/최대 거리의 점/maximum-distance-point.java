@@ -29,7 +29,7 @@ public class Main {
 		while(left+1<right){
 			int mid=(left+right)>>1;
 
-			if(check(mid)){//true면 간격을 늘림
+			if(check(mid)>M){//설치해야하는 애들이 더 많으면 간격을 늘려야함
 				left=mid;
 			}else{
 				right=mid;
@@ -40,13 +40,10 @@ public class Main {
 
 	}
 
-	private static boolean check(int mid) {//true면 간격을 늘림
+	private static int check(int mid) {//true면 간격을 늘림
 		int before=0;
 		int count=1;
 		for(int i=1;i<N;i++){
-			if(arr[i]-arr[i-1]>mid){
-				return true;
-			}
 			if(arr[i]-arr[before]<mid){
 				continue;
 			}
@@ -55,12 +52,15 @@ public class Main {
 				before=i;
 				continue;
 			}
-			before=i;
+			if(arr[i]-arr[i-1]>mid){
+				before=i;
+				count++;
+				continue;
+			}
+			before=i-1;
+			i--;
 		}
 
-		if(count>=M){
-			return true;
-		}
-		return false;
+		return count;
 	}
 }
