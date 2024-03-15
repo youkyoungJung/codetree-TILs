@@ -64,22 +64,24 @@ public class Main {
         while(!pq.isEmpty()){
             Node current = pq.poll();
 
+            if(dist[current.x][current.y] != current.cost) continue;
+
             for(int i = 0; i < 4; i++){
                 int nx = current.x + dir[i][0];
                 int ny = current.y + dir[i][1];
 
                 if(isRange(nx, ny)){
-                   if(board[nx][ny] == '('){
-                       if(dist[nx][ny] > dist[current.x][current.y] + a){
-                           dist[nx][ny] = dist[current.x][current.y] + a;
+                    if(board[nx][ny] == board[current.x][current.y]){
+                        if(dist[nx][ny] > dist[current.x][current.y] + a){
+                            dist[nx][ny] = dist[current.x][current.y] + a;
                             pq.offer(new Node(nx, ny, current.cost + a));
-                       }
-                   }else {
-                       if(dist[nx][ny] > dist[current.x][current.y] + b){
-                           dist[nx][ny] = dist[current.x][current.y] + b;
-                           pq.offer(new Node(nx, ny, current.cost + b));
-                       }
-                   }
+                        }
+                    }else {
+                        if(dist[nx][ny] > dist[current.x][current.y] + b){
+                            dist[nx][ny] = dist[current.x][current.y] + b;
+                            pq.offer(new Node(nx, ny, current.cost + b));
+                        }
+                    }
                 }
             }
         }
