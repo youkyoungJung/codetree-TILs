@@ -38,7 +38,7 @@ public class Main {
 					if(live[j] && !wifi[j])
 						cnt++;
 				}
-				if(max < cnt){
+				if(max <= cnt){
 					max = cnt;
 					idx = i;
 				}
