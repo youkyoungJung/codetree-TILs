@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int[] ternel;
+	static long[] ternel;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st=new StringTokenizer(br.readLine());
@@ -13,16 +13,14 @@ public class Main {
 		int n=Integer.parseInt(st.nextToken());
 		int m=Integer.parseInt(st.nextToken());
 
-		ternel = new int[m];
-		int maxTime=0;
+		ternel = new long[m];
 		for(int i=0;i<m;i++){
 			ternel[i]=Integer.parseInt(br.readLine());
-			maxTime=Math.max(maxTime,ternel[i]);
 		}
 		Arrays.sort(ternel);
 
 		long left=-1;
-		long right=maxTime*n;
+		long right=ternel[m-1]*n;
 
 		long mid=0;
 		while(left+1<right){
