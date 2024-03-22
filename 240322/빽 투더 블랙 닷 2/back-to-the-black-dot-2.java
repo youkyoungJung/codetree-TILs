@@ -43,6 +43,7 @@ public class Main {
 			nodes[i]=new Node(i,null,0);
 		}
 		int[] distances=new int[n+1];
+		boolean[] visited=new boolean[n+1];
 		Arrays.fill(distances,2000000000);
 
 		for(int i=0;i<m;i++){
@@ -59,11 +60,16 @@ public class Main {
 		PriorityQueue<Search> pq=new PriorityQueue<>();
 		pq.add(new Search(red1,0));
 		distances[red1]=0;
+		visited[red1]=true;
+		int minDist=0;
+
 		while(!pq.isEmpty()){
 			Search cur=pq.poll();
+			visited[cur.num]=true;
+
 			if(cur.num==red2){
-				System.out.println(cur.sum*2);
-				return;
+				minDist=cur.sum*2;
+				break;
 			}
 
 			for(Node curNode=nodes[cur.num];curNode!=null;curNode=curNode.next){
@@ -73,6 +79,36 @@ public class Main {
 				}
 			}
 		}
-        System.out.println(-1);
+
+		if(!visited[red2]){
+			System.out.println(-1);
+			return;
+		}
+
+		boolean flag=false;
+		for(int i=1;i<=n;i++){
+			if(i==red1||i==red2){
+				continue;
+			}
+			if(visited[i]){//red말고 방문한 점이 있을때 flag=true
+				flag=true;
+				break;
+			}
+		}
+
+
+		int toAdd=2000000000;
+		if(flag){
+			System.out.println(minDist);
+		}else{
+			for(Node curNode=nodes[red1].next;curNode!=null;curNode=curNode.next){
+				toAdd=Math.min(toAdd,curNode.dist);
+			}
+			for(Node curNode=nodes[red2].next;curNode!=null;curNode=curNode.next){
+				toAdd=Math.min(toAdd,curNode.dist);
+			}
+			System.out.println(minDist+toAdd*2);
+		}
+
 	}
 }
