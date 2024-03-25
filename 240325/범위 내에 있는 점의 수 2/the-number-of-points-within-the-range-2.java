@@ -29,6 +29,10 @@ public class Main {
 			int a=Integer.parseInt(st.nextToken());
 			int b=Integer.parseInt(st.nextToken());
 
+			if(a==0){
+				sb.append(arr[b]).append('\n');
+				continue;
+			}
 			sb.append(arr[b]-arr[a-1]).append('\n');
 		}//입력 종료
 
