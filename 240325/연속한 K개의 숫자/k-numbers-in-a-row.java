@@ -27,21 +27,22 @@ public class Main {
 				count++;
 			}
 		}
-		int left=1;
-		int right=K;
 
+		int left=2;
+		int right=K+1;
 		int max=count;
 
 		while(right!=n+1){
-			max=Math.max(max,count);
 			if(arr[right]!=0){
 				count++;
 			}
-			if(arr[left]!=0){
+			if(arr[left-1]!=0){
 				count--;
 			}
+
 			left++;
 			right++;
+			max=Math.max(max,count);
 		}
 
 		System.out.println(K-max);
