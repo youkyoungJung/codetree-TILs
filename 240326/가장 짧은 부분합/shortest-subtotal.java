@@ -22,7 +22,7 @@ public class Main {
             for(int j = i; j < n; j++){
                 sum += arr[j];
 
-                if(sum > s){
+                if(sum >= s){
                     answer = Math.min(n, j-i);
                     break;
                 }
