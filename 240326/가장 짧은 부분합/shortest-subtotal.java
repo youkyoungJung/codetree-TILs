@@ -16,17 +16,17 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         int answer = n+1;
-
+        int sum = 0;
+        int j = 0;
         for(int i = 0;i < n; i++){
-            int sum = 0;
-            for(int j = i; j < n; j++){
+            while(j< n && sum < s){
                 sum += arr[j];
-
-                if(sum >= s){
-                    answer = Math.min(n, j-i);
-                    break;
-                }
+                j++;
             }
+            if(sum < s)
+                break;
+            answer = Math.min(answer, j-i);
+            sum -= arr[i];
         }
 
         System.out.println(answer == n+1 ? -1 : answer);
