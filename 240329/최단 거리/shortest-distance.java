@@ -24,13 +24,13 @@ public class Main {
             }
         }
 
-        init();
+        // init();
 
         for(int k = 0; k < n; k++){
             for(int i = 0; i < n; i++){
                 for(int j = 0; j < n; j++){
-                    if(dp[i][j] > graph[i][k] + graph[k][j]){
-                        dp[i][j] = graph[i][k] + graph[k][j];
+                    if(graph[i][j] > graph[i][k] + graph[k][j]){
+                        graph[i][j] = graph[i][k] + graph[k][j];
                     }
                 }
             }
@@ -42,7 +42,7 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            sb.append(dp[a-1][b-1]).append("\n");
+            sb.append(graph[a-1][b-1]).append("\n");
         }
         System.out.println(sb.toString());
 
