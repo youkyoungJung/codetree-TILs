@@ -44,13 +44,14 @@ public class Main {
 				continue;
 			int firstX=x+Math.abs(k-Math.abs(i));
 			int secondX=x-Math.abs(k-Math.abs(i))-1;
+			if(firstX>=n){
+				firstX=n-1;
+			}
 			if(secondX<0){
 				curSum+=sum[y+i][firstX];
 				continue;
 			}
-			if(firstX>=n){
-				firstX=n-1;
-			}
+
 			curSum+=sum[y+i][firstX]-sum[y+i][secondX];
 		}
 		//System.out.println("X="+x+" Y="+y+" curSum="+ curSum);
