@@ -3,13 +3,17 @@ import java.io.*;
 
 public class Main {
 
-    static class Location {
+    static class Location implements Comparable<Location>{
         int num;
         int cost;
 
         public Location (int num, int cost){
             this.num = num;
             this.cost = cost;
+        }
+
+        public int compareTo(Location o){
+            return Integer.compare(this.cost, o.cost);
         }
     }
 
@@ -67,7 +71,7 @@ public class Main {
         System.out.println(answer);
     }
     public static int goCost(int start, int end){
-        Queue<Location> queue = new ArrayDeque<>();
+        PriorityQueue<Location> queue = new PriorityQueue<>();
         queue.offer(new Location(start, 0));
 
         while(!queue.isEmpty()){
