@@ -3,33 +3,7 @@ import java.io.*;
 
 public class Main {
 
-    static class Location implements Comparable<Location>{
-        int num;
-        int cost;
-
-        public Location (int num, int cost){
-            this.num = num;
-            this.cost = cost;
-        }
-
-        public int compareTo(Location o){
-            return Integer.compare(this.cost, o.cost);
-        }
-    }
-
-    static class Edge{
-        int num;
-        int val;
-
-        public Edge(int num, int val){
-            this.num = num;
-            this.val = val;
-        }
-    }
-
-    static ArrayList<ArrayList<Edge>> graph = new ArrayList<>(201);
-
-
+    static int INF = (int)1e9;
     public static void main(String[] args) throws IOException {
         // 여기에 코드를 작성해주세요.
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -39,9 +13,13 @@ public class Main {
         int p = Integer.parseInt(st.nextToken());
         int q = Integer.parseInt(st.nextToken());
 
-
-        for(int i = 0; i < 201; i++){
-            graph.add(new ArrayList<>());
+        int[][] graph = new int[n+1][n+1];
+        //init
+        for(int i = 0; i <= n; i++){
+            for(int j = 0; j <= n; j++){
+                graph[i][j] = INF;
+            }
+            graph[i][i] = 0;
         }
 
         for(int i = 0; i < m; i++){
@@ -50,7 +28,17 @@ public class Main {
             int e = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
 
-            graph.get(s).add(new Edge(e, v));
+            graph[s][e] = v;
+        }
+
+        //floydWarshall
+
+        for(int k = 1; k <= n; k++){
+            for(int i = 1; i <= n; i++){
+                for(int j = 1; j <= n; j++){
+                    graph[i][j] = Math.min(graph[i][j], graph[i][k] + graph[k][j]);
+                }
+            }
         }
 
         int isGo = 0;
@@ -59,34 +47,13 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
-
-            int res = goCost(start, end);
-
-            if(res != -1){
+            if(graph[start][end] != INF){
                 isGo++;
-                answer += res;
+                answer += graph[start][end];
             }
+
         }
         System.out.println(isGo);
         System.out.println(answer);
-    }
-    public static int goCost(int start, int end){
-        PriorityQueue<Location> queue = new PriorityQueue<>();
-        queue.offer(new Location(start, 0));
-
-        while(!queue.isEmpty()){
-            Location current = queue.poll();
-
-            int cNum = current.num;
-            int cCost = current.cost;
-
-            if(cNum == end) return current.cost;
-
-            for(int i = 0; i < graph.get(cNum).size(); i++){
-                queue.offer(new Location(graph.get(cNum).get(i).num, cCost + graph.get(cNum).get(i).val));
-                if(graph.get(cNum).get(i).num == end) return cCost + graph.get(cNum).get(i).val;
-            }
-        }
-        return -1; // 만나지 못했을 경우.
     }
 }
