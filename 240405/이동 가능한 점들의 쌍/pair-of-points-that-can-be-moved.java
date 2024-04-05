@@ -14,14 +14,12 @@ public class Main {
         int q = Integer.parseInt(st.nextToken());
 
         int[][] graph = new int[n+1][n+1];
-        boolean[][] isVisited = new boolean[n+1][n+1];
         //init
         for(int i = 0; i <= n; i++){
             for(int j = 0; j <= n; j++){
                 graph[i][j] = INF;
             }
             graph[i][i] = 0;
-
         }
 
         for(int i = 0; i < m; i++){
@@ -31,9 +29,6 @@ public class Main {
             int v = Integer.parseInt(st.nextToken());
 
             graph[s][e] = v;
-            if(s <= p || e <= p){
-                isVisited[s][e] = true;
-            }
         }
 
         //floydWarshall
@@ -41,14 +36,7 @@ public class Main {
         for(int k = 1; k <= n; k++){
             for(int i = 1; i <= n; i++){
                 for(int j = 1; j <= n; j++){
-
-                    if(graph[i][j] > graph[i][k] + graph[k][j]){
-                        if(k <= p){
-                            isVisited[i][j] = true;
-                        }
-                        graph[i][j] = graph[i][k] + graph[k][j];
-
-                    }
+                    graph[i][j] = Math.min(graph[i][j], graph[i][k] + graph[k][j]);
                 }
             }
         }
@@ -59,16 +47,19 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
-            if(isVisited[start][end]){
-                isGo++;
-                answer += graph[start][end];
+
+            int dist = (int)1e9;
+            for(int i = 1; i <= p; i++){
+                dist = Math.min(dist, graph[start][i] + graph[i][end]);
             }
+
+            if(dist >= (int)1e9) continue;
+
+            answer += dist;
+            isGo++;
 
         }
         System.out.println(isGo);
         System.out.println(answer);
     }
-
-    // 174
-    // 222784879
 }
