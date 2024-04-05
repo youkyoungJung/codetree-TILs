@@ -53,7 +53,7 @@ public class Main {
                 dist = Math.min(dist, graph[start][i] + graph[i][end]);
             }
 
-            if(dist == (int)1e9) continue;
+            if(dist >= INF) continue;
 
             answer += dist;
             isGo++;
