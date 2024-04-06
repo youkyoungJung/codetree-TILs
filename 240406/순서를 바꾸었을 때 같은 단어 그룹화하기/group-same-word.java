@@ -24,8 +24,6 @@ public class Main {
         entrySet.addAll(map.entrySet());
 
         Map.Entry<String, Integer> answer = entrySet.poll();
-        System.out.println(answer.getKey().length());
-
-
+        System.out.println(answer.getValue());
     }
 }
