@@ -8,14 +8,14 @@ public class Main {
         StringTokenizer st = null;
         int n = Integer.parseInt(br.readLine());
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Long, Long> map = new HashMap<>();
 
         for(int i = 0; i < n; i++){
             st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
+            long x = Long.parseLong(st.nextToken());
+            long y = Long.parseLong(st.nextToken());
             if(map.containsKey(x)){
-                int value = Math.min(map.get(x), y);
+                long value = Math.min(map.get(x), y);
                 map.put(x, value);
             }else{
                 map.put(x, y);
@@ -24,7 +24,7 @@ public class Main {
         }
 
         int answer = 0;
-        for(Integer x : map.keySet()){
+        for(Long x : map.keySet()){
             answer += map.get(x);
         }
 
