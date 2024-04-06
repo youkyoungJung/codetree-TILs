@@ -14,13 +14,13 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             long x = Long.parseLong(st.nextToken());
             long y = Long.parseLong(st.nextToken());
-            if(map.containsKey(x)){
-                long value = Math.min(map.get(x), y);
-                map.put(x, value);
-            }else{
-                map.put(x, y);
-            }
-//            map.put(x, map.getOrDefault(x, 0) +  Math.min(map.get(x), y));
+//            if(map.containsKey(x)){
+//                long value = Math.min(map.get(x), y);
+//                map.put(x, value);
+//            }else{
+//                map.put(x, y);
+//            }
+            map.put(x, Math.min(map.getOrDefault(x, Long.MAX_VALUE), y));
         }
 
         long answer = 0;
