@@ -23,7 +23,7 @@ public class Main {
 //            map.put(x, map.getOrDefault(x, 0) +  Math.min(map.get(x), y));
         }
 
-        int answer = 0;
+        long answer = 0;
         for(Long x : map.keySet()){
             answer += map.get(x);
         }
