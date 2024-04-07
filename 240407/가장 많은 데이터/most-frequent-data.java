@@ -15,8 +15,8 @@ public class Main {
                 map.put(s, 1);
             }else{
                 map.put(s, map.get(s) + 1);
-                answer = Math.max(answer, map.get(s));
             }
+            answer = Math.max(answer, map.get(s));
         }
         System.out.println(answer);
     }
