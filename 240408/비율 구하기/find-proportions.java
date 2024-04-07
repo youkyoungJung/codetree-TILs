@@ -16,7 +16,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         for(Map.Entry<String, Integer> entry : map.entrySet()){
             // System.out.printf("%.4f%n",(double)entry.getValue()/5 * 100);
-            sb.append(entry.getKey()).append(" ").append(String.format("%.4f",(double)entry.getValue()/5 * 100)).append("\n");
+            sb.append(entry.getKey()).append(" ").append(String.format("%.4f",(double)entry.getValue()/n * 100)).append("\n");
         }
         System.out.println(sb.toString());
     }
