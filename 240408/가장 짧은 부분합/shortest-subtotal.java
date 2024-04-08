@@ -28,11 +28,11 @@ public class Main {
 				sum += arr[j];
 				j++;
 			}
-			// System.out.println("sum = " + sum);
-			answer = Math.min(answer, j - i+1);
+			if (sum >= s)
+				answer = Math.min(answer, j - i);
 			sum -= arr[i];
 		}
-		System.out.println(answer == Integer.MAX_VALUE ? -1 : answer);
+		System.out.println(answer == n + 1 ? -1 : answer);
 
 	}
 
