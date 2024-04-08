@@ -16,29 +16,21 @@ public class Main {
 		for (int i = 0; i < n; i++) {
 			int x = Integer.parseInt(st.nextToken());
 			max = Math.max(max, x);
-			arr[i] = max;
+			arr[i] = x;
 		}
 		cnts = new int[max + 1];
 
 		int j = 0;
 		int answer = -1;
 		for (int i = 0; i < n; i++) {
-			while (possible() && j < n) {
+			while (j < n && cnts[arr[j]] != 1) {
 				cnts[arr[j]]++;
 				j++;
 			}
 			answer = Math.max(answer, j-i);
-			arr[i] -= 1;
+			cnts[arr[i]]--;
 		}
 		System.out.println(answer);
-	}
-
-	public static boolean possible() {
-		for (int i = 0; i < cnts.length; i++) {
-			if(cnts[i] >= 2)
-				return false;
-		}
-		return true;
 	}
 
 }
