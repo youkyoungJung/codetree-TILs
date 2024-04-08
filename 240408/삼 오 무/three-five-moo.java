@@ -11,7 +11,6 @@ public class Main {
 		long left = 0, right = Long.MAX_VALUE, answer = Long.MAX_VALUE;
 		while(left <= right){
 			long mid = (left + right) /2;
-			System.out.println("mid = " + mid);
 			if (moo(mid) >= n) {
 				right = mid - 1;
 				answer = Math.min(answer, mid);
