@@ -17,7 +17,7 @@ public class Main {
 			arr[i] = Integer.parseInt(br.readLine());
 		}
 		int left = 1, right = 10001;
-		int answer = -1;
+		int answer = 0;
 		while(left <= right){
 			int mid = (left + right) /2;
 			if(div(mid) >= m){
