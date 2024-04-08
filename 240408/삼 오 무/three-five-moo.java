@@ -3,14 +3,15 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
-	static int n;
+	static long n;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		n = Integer.parseInt(br.readLine());
-		int left = 0, right = Integer.MAX_VALUE, answer = Integer.MAX_VALUE;
+		long left = 0, right = Long.MAX_VALUE, answer = Long.MAX_VALUE;
 		while(left <= right){
-			int mid = (left + right) /2;
+			long mid = (left + right) /2;
+			System.out.println("mid = " + mid);
 			if (moo(mid) >= n) {
 				right = mid - 1;
 				answer = Math.min(answer, mid);
@@ -21,8 +22,8 @@ public class Main {
 		System.out.println(answer);
 	}
 
-	private static int moo(int mid) {
-		int cnt = mid;
+	private static long moo(long mid) {
+		long cnt = mid;
 		cnt -= (mid / 3);
 		cnt -= (mid / 5);
 		cnt += (mid / 15);
