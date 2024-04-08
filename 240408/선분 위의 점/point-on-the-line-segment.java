@@ -19,6 +19,7 @@ public class Main {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
 
+		Arrays.sort(arr);
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < m; i++) {
