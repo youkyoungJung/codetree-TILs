@@ -1,32 +1,32 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
+	static int n;
 
-    static long N;
-    public static void main(String[] args) throws IOException{
-        // 여기에 코드를 작성해주세요.
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Long.parseLong(br.readLine());
-        long left = 0, right = Long.MAX_VALUE, answer = Long.MAX_VALUE;
-        while(left <= right){
-            long mid = (left + right) /2;
-            if(tf(mid) >= N){
-                right = mid -1;
-                answer = Math.min(answer, mid);
-            } else{
-                left = mid + 1;
-            }
-        }
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		n = Integer.parseInt(br.readLine());
+		int left = 0, right = Integer.MAX_VALUE, answer = Integer.MAX_VALUE;
+		while(left <= right){
+			int mid = (left + right) /2;
+			if (moo(mid) >= n) {
+				right = mid - 1;
+				answer = Math.min(answer, mid);
+			} else {
+				left = mid + 1;
+			}
+		}
+		System.out.println(answer);
+	}
 
-        System.out.println(answer);
-    }
+	private static int moo(int mid) {
+		int cnt = mid;
+		cnt -= (mid / 3);
+		cnt -= (mid / 5);
+		cnt += (mid / 15);
+		return cnt;
+	}
 
-    public static long tf(long x){
-        long cnt = x;
-        cnt -= (x/3);
-        cnt -= (x/5);
-        cnt += (x/15);
-        return cnt;
-    }
 }
