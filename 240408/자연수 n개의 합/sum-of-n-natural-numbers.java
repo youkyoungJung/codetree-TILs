@@ -3,6 +3,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
+	public static final long MAX_S = 2000000000;
 
 	static long s;
 
@@ -10,7 +11,7 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		s = Long.parseLong(br.readLine());
 
-		long left = 0, right = s, answer = 0;
+		long left = 0, right = MAX_S, answer = 0;
 		while (left <= right) {
 			long mid = (left + right) / 2;
 			if (mid * (mid + 1) / 2 <= s) {
