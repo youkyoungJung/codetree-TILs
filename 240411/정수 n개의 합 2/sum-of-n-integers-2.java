@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int n, k, max;
+    static int n, k, max = Integer.MIN_VALUE;
     static int[] arr;
     public static void main(String[] args) throws IOException {
         // 여기에 코드를 작성해주세요.
@@ -17,7 +17,7 @@ public class Main {
             arr[i] = arr[i-1] + x;
         }
 
-        for(int i = k; i <= n-k; i++){
+        for(int i = k; i <= n; i++){
             max = Math.max(max, arr[i]-arr[i-k]);
         }
         System.out.println(max);
