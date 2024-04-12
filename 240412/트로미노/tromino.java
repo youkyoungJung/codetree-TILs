@@ -43,6 +43,6 @@ public class Main {
     }
 
     public static boolean checked(int nr, int nc){
-        return nr >= 0 && nr <= n-1 && nc >= 0 && nc < m-1;
+        return nr >= 0 && nr <= n-1 && nc >= 0 && nc <= m-1;
     }
 }
