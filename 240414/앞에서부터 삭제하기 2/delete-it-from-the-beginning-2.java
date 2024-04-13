@@ -29,7 +29,7 @@ public class Main {
 
         // System.out.println(Arrays.toString(dp));
         for(int i = 1; i <= n-2; i++){
-            double avg = (double)((dp[n] - dp[i] - right[i+1]) / (n-i-1));
+            double avg = (double)((dp[n] - dp[i] - right[i+1]) / (double)(n-i-1));
             answer = Math.max(answer, avg);
         }
 
