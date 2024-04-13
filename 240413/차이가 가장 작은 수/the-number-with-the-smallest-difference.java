@@ -13,25 +13,18 @@ public class Main {
         TreeSet<Integer> set = new TreeSet<>();
         int answer = INF;
         for(int i = 0; i < n; i++){
-            set.add(Integer.parseInt(br.readLine()));
-        } //end of for
+            int num = Integer.parseInt(br.readLine());
 
-        ArrayList<Integer> arr = new ArrayList<>(set);
-
-        int s = 0;
-        int e = arr.size()-1;
-
-        while(s <= e){
-            int target = arr.get(s);
-//             System.out.println("s: " + target);
-//             System.out.println("e: " + arr.get(e));
-            if(m <= Math.abs(arr.get(e) - target)){
-                answer = Math.min(answer, Math.abs(arr.get(e) - target));
-                e--;
-            }else{
-                s++;
+            set.add(num);
+            
+            if(set.ceiling(num + m) != null){
+                answer = Math.min(answer, set.ceiling(num+m) - num);
             }
-        }
+
+            if(set.floor(num - m) != null){
+                answer = Math.min(answer, num - set.floor(num-m));
+            }
+        } //end of for
 
         if(answer == INF){
             System.out.println(-1);
