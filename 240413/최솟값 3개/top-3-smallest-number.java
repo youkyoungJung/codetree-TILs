@@ -18,7 +18,9 @@ public class Main {
                 int first = queue.poll();
                 int second = queue.poll();
                 int third = queue.poll();
-                sb.append(first * second * third).append("\n");
+
+                long answer = (long)first * second * third;
+                sb.append(answer).append("\n");
                 queue.offer(first);
                 queue.offer(second);
                 queue.offer(third);
