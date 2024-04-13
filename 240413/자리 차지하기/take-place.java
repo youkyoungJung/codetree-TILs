@@ -21,14 +21,14 @@ public class Main {
         for(int i = 0; i < n; i++){
             int num = Integer.parseInt(st.nextToken());
             if(!set.contains(num)){ //num 이 없어
-                for(int j = num-1; j >= 1; j--){
-                    if(set.contains(j)){
-                        set.remove(j);
-                        answer++;
-                        break;
-                    }else{
-                        return;
-                    }
+                if(set.lower(num)!= null){
+                    int j = set.lower(num);
+                    set.remove(j);
+                    answer++;
+
+                }else{
+                    System.out.println(answer);
+                    return;
                 }
             }else{
                 set.remove(num);
