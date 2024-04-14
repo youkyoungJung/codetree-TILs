@@ -1,59 +1,54 @@
-import java.util.*;
+/**
+ 정답 코드
+*/
 import java.io.*;
+import java.util.*;
 
 public class Main {
-    static String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-    static int[] monthsOfDay = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
     public static void main(String[] args) throws IOException {
-        // 여기에 코드를 작성해주세요.
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
 
+        int[] days = new int[]{0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        String[] week = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        st = new StringTokenizer(br.readLine(), " ");
         int m1 = Integer.parseInt(st.nextToken());
         int d1 = Integer.parseInt(st.nextToken());
         int m2 = Integer.parseInt(st.nextToken());
         int d2 = Integer.parseInt(st.nextToken());
+        String str = br.readLine();
 
-        String day = br.readLine();
-        int findNum = getNum(day);
-//        System.out.println("findNum: " + findNum);
+        int sum1 = 0, sum2 = 0;
+        for (int i = 1; i < m1; i++) {
+            sum1 += days[i];
+        }
+        for (int i = 1; i < m2; i++) {
+            sum2 += days[i];
+        }
+        sum1 += d1;
+        sum2 += d2;
 
-        d1 += findNum;
+        int diff = sum2 - sum1;
+        int start = 0, target = 0, answer = 0;
 
-        int answer = 0;
-        int start = 0;
-        int diff = totalDays(m2, d2) - totalDays(m1, d1);
-//        for (int i = 1; i <= diff; i++) {
-//            start = (start + 1) % 7;
-//            if (start == findNum) {
-//                answer++;
-//            }
-//        }
-        System.out.println(diff/7+1);
-
-    }
-
-    public static int getNum(String day){
-        int target = 0;
-        for (int i = 0; i < days.length; i++) {
-            if (day.equals(days[i])) {
+        for (int i = 1; i < week.length; i++) {
+            if (str.equals(week[i])) {
                 target = i;
                 break;
             }
         }
-        return target;
-    }
 
-    public static int totalDays(int month, int day){
-        int totalDay = 0;
-
-        for(int i = 1; i < month; i++){
-            totalDay += monthsOfDay[i];
+        for (int i = 1; i <= diff; i++) {
+            start = (start + 1) % 7;
+            if (start == target) {
+                answer++;
+            }
         }
+        bw.write(String.valueOf(answer));
 
-        totalDay += day;
-
-        return totalDay;
+        br.close();
+        bw.flush();
+        bw.close();
     }
 }
