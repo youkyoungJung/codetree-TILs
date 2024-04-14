@@ -13,7 +13,7 @@ public class Main {
 
         int[] arrA = new int[n];
         int[] arrB = new int[m];
-        PriorityQueue<Integer> total = new PriorityQueue<>();
+        PriorityQueue<Long> total = new PriorityQueue<>();
 
         st = new StringTokenizer(br.readLine());
         for(int i = 0; i < n; i++){
@@ -26,13 +26,13 @@ public class Main {
             arrB[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(arrB);
-        int answer = 0;
+        long answer = 0;
 
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
-                total.offer(arrA[j] + arrB[i]);
+                total.offer((long) (arrA[j] + arrB[i]));
             }
-            int current = total.poll();
+            long current = total.poll();
             answer++;
 
             if(answer == k){
@@ -40,9 +40,5 @@ public class Main {
                 return;
             }
         }
-
-
-
-
     }
 }
