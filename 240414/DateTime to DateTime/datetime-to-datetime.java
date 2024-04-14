@@ -11,12 +11,8 @@ public class Main {
         int b = Integer.parseInt(st.nextToken());
         int c = Integer.parseInt(st.nextToken());
 
+        int answer = (a*24*60 + b*60 + c) - (11*24*60 + 11*60 + 11);
         
-        int day = (c-11);
-        int dayTomin = (a-11) * 24 * 60;
-        int hourTomin = (b-11) * 60;
-
-        int answer = dayTomin + hourTomin + day;
         if(answer < 0){
             System.out.println(-1);
         }else{
