@@ -36,7 +36,7 @@ public class Main {
 
     public static int getNum(String day){
         int target = 0;
-        for (int i = 1; i < days.length; i++) {
+        for (int i = 0; i < days.length; i++) {
             if (day.equals(days[i])) {
                 target = i;
                 break;
