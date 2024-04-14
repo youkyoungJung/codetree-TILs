@@ -16,13 +16,28 @@ public class Main {
             String command = st.nextToken();
 
             if(command.equals("L")){ //왼쪽으로 이동
-
-                for(int i = current; i >= current-x; i==)
+                for(int j = x; j > 0; j--){
+                    arr[current]++;
+                    current--;
+                }
 
             }else{ //오른쪽으로 이동
+                for(int j = 0; j < x; j++){
+                    arr[current]++;
+                    current++;
+                }
 
             }
         }
+
+        int answer = 0;
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] >= 2){
+                answer++;
+            }
+        }
+
+        System.out.println(answer);
 
     }
 }
