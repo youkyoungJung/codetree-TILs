@@ -22,7 +22,7 @@ public class Main {
 
         int diff = totalDays(m2, d2) - totalDays(m1, d1);
         // System.out.println(diff);
-       int answer = diff + 1 >= 7 ? diff / 7 : diff / 7;
+        int answer = diff/7 ;
         answer += diff % 7 + 1 >= findNum ? 1 : 0;
         System.out.println(answer);
 
