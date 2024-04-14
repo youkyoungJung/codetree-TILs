@@ -7,6 +7,10 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         int n = Integer.parseInt(br.readLine());
+        if(n == 0){
+            System.out.println(0);
+            return;
+        }
 
         while(n > 0){
             int div = n % 2;
