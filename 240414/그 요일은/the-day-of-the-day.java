@@ -17,23 +17,32 @@ public class Main {
 
         String day = br.readLine();
         int findNum = getNum(day);
+//        System.out.println("findNum: " + findNum);
 
         d1 += findNum;
 
+        int answer = 0;
+        int start = 0;
         int diff = totalDays(m2, d2) - totalDays(m1, d1);
-        // System.out.println(diff);
-
-        System.out.println(diff/7);
+//        for (int i = 1; i <= diff; i++) {
+//            start = (start + 1) % 7;
+//            if (start == findNum) {
+//                answer++;
+//            }
+//        }
+        System.out.println(diff/7+1);
 
     }
 
     public static int getNum(String day){
-        for(int i = 0; i < 7; i++){
-            if(days[i] == day){
-                return i;
+        int target = 0;
+        for (int i = 1; i < days.length; i++) {
+            if (day.equals(days[i])) {
+                target = i;
+                break;
             }
         }
-        return -1;
+        return target;
     }
 
     public static int totalDays(int month, int day){
