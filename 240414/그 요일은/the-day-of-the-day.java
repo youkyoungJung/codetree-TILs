@@ -21,10 +21,9 @@ public class Main {
         d1 += findNum;
 
         int diff = totalDays(m2, d2) - totalDays(m1, d1);
-        // int diff =  sum2-sum1;
-        int answer = diff/7;
-        answer += diff%7 >= findNum?1:0;
-        System.out.println(answer);
+        // System.out.println(diff);
+
+        System.out.println(diff/7);
 
     }
 
