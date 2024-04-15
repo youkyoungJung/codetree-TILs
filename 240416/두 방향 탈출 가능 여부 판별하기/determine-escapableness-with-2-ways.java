@@ -47,6 +47,6 @@ public class Main {
     }
 
     public static boolean checked(int nx, int ny){
-        return nx >= 0 && nx < n && ny >= 0 && ny < m  && !isVisited[nx][ny];
+        return nx >= 0 && nx < n && ny >= 0 && ny < m  && !isVisited[nx][ny] && arr[nx][ny] == 1;
     }
 }
