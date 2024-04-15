@@ -33,7 +33,7 @@ public class Main {
                     dp[i] = dp[i - nums[j]] + 1;
                 }
             }
-            if(dp[m] == -1){
+            if(dp[m] == 0){
                 flag = true;
             }
         }
@@ -49,7 +49,7 @@ public class Main {
     public static void init(){
 
         for(int i = 0; i < m+1; i++){
-            dp[i] = -1;
+            dp[i] = 0;
         }
         dp[0] = 1;
 
