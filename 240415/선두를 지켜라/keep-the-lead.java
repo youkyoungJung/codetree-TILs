@@ -12,29 +12,29 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        int second = 0;
+        int second = 1;
         for(int i = 0; i < n; i++){
             st = new StringTokenizer(br.readLine());
             int v = Integer.parseInt(st.nextToken());
             int t = Integer.parseInt(st.nextToken());
 
-            for(int j = second; j < v*t; j++){
-                A[i] = (double)v/j;
+            while(t-- > 0){
+                A[second] = A[second-1] + v;
+                second++;
             }
-            second += (v*t);
         }
 
-        second = 0;
+        second = 1;
 
         for(int i = 0; i < m; i++){
             st = new StringTokenizer(br.readLine());
             int v = Integer.parseInt(st.nextToken());
             int t = Integer.parseInt(st.nextToken());
 
-            for(int j = second; j < v*t; j++){
-                B[i] = (double)v/j;
+            while(t-- > 0){
+                B[second] = B[second-1] + v;
+                second++;
             }
-            second += (v*t);
         }
 
         int answer = 0;
