@@ -9,6 +9,8 @@ public class Main {
 
         int[] arr = new int[n+1];
         int[] dp = new int[n+1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
         StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i = 1; i <= n; i++){
             arr[i] = Integer.parseInt(st.nextToken());
