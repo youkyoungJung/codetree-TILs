@@ -42,15 +42,15 @@ public class Main {
     
         for(int i = 1; i < 1000_001; i++){
             if(A[i] > B[i]){
-                if(target == 1){
-                    answer++;
-                }
-                target = 0;
-            }else if(A[i] < B[i]){
-                if(target == 0){
+                if(target == 2){
                     answer++;
                 }
                 target = 1;
+            }else if(A[i] < B[i]){
+                if(target == 1){
+                    answer++;
+                }
+                target = 2;
             }
         }
 
