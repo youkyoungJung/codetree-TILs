@@ -7,11 +7,11 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        boolean[][] arr = new boolean[200][200];
+        boolean[][] arr = new boolean[300][300];
         for(int k = 0; k < n; k++){
             StringTokenizer st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
+            int x = Integer.parseInt(st.nextToken())+100;
+            int y = Integer.parseInt(st.nextToken())+100;
 
             for(int i = x; i < x+8; i++){
                 for(int j = y; j < y+8; j++){
@@ -22,8 +22,8 @@ public class Main {
         }
 
         int answer = 0;
-        for(int i = 0; i < 200; i++){
-            for(int j = 0; j < 200; j++){
+        for(int i = 0; i < 300; i++){
+            for(int j = 0; j < 300; j++){
                 if(arr[i][j]) answer++;
             }
         }
