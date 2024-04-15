@@ -28,6 +28,7 @@ public class Main {
         isVisited[0][0] = true;
         dfs(0, 0);
 
+        // System.out.println(Arrays.deepToString(isVisited));
         System.out.println(isVisited[n-1][m-1]?1:0);
 
     }
@@ -37,7 +38,7 @@ public class Main {
 
         for(int i = 0; i < dist.length; i++){
             int nx = x + dist[i][0];
-            int ny = x + dist[i][1];
+            int ny = y + dist[i][1];
 
             if(checked(nx, ny)){
                 isVisited[nx][ny] = true;
