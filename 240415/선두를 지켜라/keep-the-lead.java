@@ -39,14 +39,19 @@ public class Main {
 
         int answer = 0;
         int target = 0;
+        if(A[0] > B[0]){
+            target = 0;
+        }else{
+            target = 1;
+        }
 
-        for(int i = 0; i < 1000_001; i++){
+        for(int i = 1; i < 1000_001; i++){
             if(A[i] > B[i]){
                 if(target == 1){
                     answer++;
                 }
                 target = 0;
-            }else{
+            }else if(B[i] > A[i]){
                 if(target == 0){
                     answer++;
                 }
@@ -54,7 +59,7 @@ public class Main {
             }
         }
 
-        System.out.println(answer-1);
+        System.out.println(answer);
 
     }
 }
