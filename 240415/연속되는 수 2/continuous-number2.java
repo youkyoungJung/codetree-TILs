@@ -8,12 +8,17 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         int[] arr = new int[n];
-        int answer = 1;
+        int cnt = 0;
+        int answer = 0;
         for(int i = 0; i < n; i++){
             arr[i] = Integer.parseInt(br.readLine());
-            if(i != 0){
-                if(arr[i] != arr[i-1]) answer++;
+            if(i == 0 || arr[i] == arr[i-1]){
+                cnt++;
+            }else{
+                cnt = 1;
             }
+            // System.out.println("arr[i]: "+ arr[i]+ " cnt: " + cnt);
+            answer = Math.max(answer, cnt);
         }
         System.out.println(answer);
     }
