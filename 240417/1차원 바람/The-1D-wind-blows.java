@@ -25,31 +25,33 @@ public class Main {
             }
         }
 
-        st = new StringTokenizer(br.readLine());
-        int r = Integer.parseInt(st.nextToken())-1;
-        int startDir = st.nextToken().charAt(0) == 'L' ? 0 : 1;
+        while(q-->0) {
+            st = new StringTokenizer(br.readLine());
+            int r = Integer.parseInt(st.nextToken()) - 1;
+            int startDir = st.nextToken().charAt(0) == 'L' ? 0 : 1;
 
-        //1.wind shift
-        windShift(r, startDir);
-        //2.방향 바꾸기
-        startDir = changeDir(startDir);
-        //3.위탐색 (맞는가 확인하고)
-        for(int i = r, dir = startDir; i >= 1; i--){
-            if(checked(i-1, i)){
-                windShift(i-1, dir);
-                dir = changeDir(dir);
-            }else{
-                break;
+            //1.wind shift
+            windShift(r, startDir);
+            //2.방향 바꾸기
+            startDir = changeDir(startDir);
+            //3.위탐색 (맞는가 확인하고)
+            for (int i = r, dir = startDir; i >= 1; i--) {
+                if (checked(i - 1, i)) {
+                    windShift(i - 1, dir);
+                    dir = changeDir(dir);
+                } else {
+                    break;
+                }
             }
-        }
 
-        //4.아래탐색
-        for(int i = r, dir = startDir; i < n-1; i++){
-            if(checked(i+1, i)){
-                windShift(i+1, dir);
-                dir = changeDir(dir);
-            }else{
-                break;
+            //4.아래탐색
+            for (int i = r, dir = startDir; i < n - 1; i++) {
+                if (checked(i + 1, i)) {
+                    windShift(i + 1, dir);
+                    dir = changeDir(dir);
+                } else {
+                    break;
+                }
             }
         }
 
@@ -68,6 +70,8 @@ public class Main {
         if(dir == 0){ // L
             int temp = arr[r][m-1];
             // System.out.println(temp);
+
+
             for(int i = m-1; i >=1; i--){
                 arr[r][i] = arr[r][i-1];
             }
