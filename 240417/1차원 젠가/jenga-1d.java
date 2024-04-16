@@ -14,8 +14,8 @@ public class Main {
             arr[i] = Integer.parseInt(br.readLine());
         }
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int s1 = Integer.parseInt(st.nextToken());
-        int e1 = Integer.parseInt(st.nextToken());
+        int s1 = Integer.parseInt(st.nextToken())-1;
+        int e1 = Integer.parseInt(st.nextToken())-1;
 
         int index = 0;
         for(int i = s1; i < e1; i++){
@@ -33,8 +33,8 @@ public class Main {
         // System.out.println(Arrays.toString(arr));
 
         st = new StringTokenizer(br.readLine());
-        int s2 = Integer.parseInt(st.nextToken());
-        int e2 = Integer.parseInt(st.nextToken());
+        int s2 = Integer.parseInt(st.nextToken())-1;
+        int e2 = Integer.parseInt(st.nextToken())-1;
 
         temp = new int[n+1];
         index = 0;
