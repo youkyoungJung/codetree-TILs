@@ -30,7 +30,7 @@ public class Main {
             }
         }
 
-        for(int i = 0; i <= sum; i++){
+        for(int i = 0; i < sum; i++){
             if(dp[n][i]){
                 // System.out.println("i: "+ i);
                 if(i == sum/2){
