@@ -10,7 +10,7 @@ public class Main {
         int t =  Integer.parseInt(st.nextToken());
 
         int[][] arr = new int[3][n];
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < 3; i++){
             st = new StringTokenizer(br.readLine());
             for(int j = 0; j < n; j++){
                 arr[i][j] = Integer.parseInt(st.nextToken());
@@ -21,6 +21,8 @@ public class Main {
             int temp = arr[0][n-1];
             int temp2 = arr[1][n-1];
             int temp3 = arr[2][n-1];
+
+            // System.out.println("temp3: " + temp3);
             for(int i = n-1; i >= 1; i--){
                 arr[0][i] = arr[0][i-1];
             }
@@ -30,9 +32,9 @@ public class Main {
             for(int i = n-1; i >= 1; i--){
                 arr[2][i] = arr[2][i-1];
             }
+            arr[0][0] = temp3;
             arr[1][0] = temp;
             arr[2][0] = temp2;
-            arr[0][0] = temp3;
 
         }
 
