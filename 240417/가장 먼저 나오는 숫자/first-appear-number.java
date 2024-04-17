@@ -14,23 +14,29 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        arr = new int[n];
+        arr = new int[n+1];
         st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < n; i++){
+        for(int i = 1; i <= n; i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
         st = new StringTokenizer(br.readLine());
         for(int i = 0; i < m; i++){
             int target = Integer.parseInt(st.nextToken());
-            sb.append(binarySearch(target)).append("\n");
+            int lo = binarySearch(target);
+
+            if(lo <= n && arr[lo] == target){
+                sb.append(lo).append("\n");
+            }else{
+                sb.append(-1).append("\n");
+            }
         }
         System.out.println(sb);
     }
 
     public static int binarySearch(int target){
-        int left = 0;
-        int right = n-1;
-        int minIdx = n;
+        int left = 1;
+        int right = n;
+        int minIdx = n+1;
 
         while(left <= right){
             int mid = (left + right) / 2;
@@ -43,6 +49,6 @@ public class Main {
             }
         }
 
-        return arr[minIdx] == target ? minIdx+1 : -1;
+        return minIdx;
     }
 }
