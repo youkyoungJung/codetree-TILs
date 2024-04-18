@@ -39,7 +39,11 @@ public class Main {
                 res += target;
                 temp = nums.get(i);
             }
-            res += arr[temp][1];
+
+            int target = arr[temp][1];
+            if(target == 0) return;
+
+            res += target;
             // System.out.println(res);
             answer = Math.min(answer, res);
             return;
