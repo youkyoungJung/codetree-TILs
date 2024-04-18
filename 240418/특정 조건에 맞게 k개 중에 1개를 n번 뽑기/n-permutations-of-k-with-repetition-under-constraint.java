@@ -33,9 +33,9 @@ public class Main {
         }
 
         for(int i = 1; i <= k; i++){
-            // if(cnt >= 2 &&
-            //     i == nums.get(nums.size()-1) &&
-            //     i == nums.get(nums.size()-2)) continue;
+            if(cnt >= 2 &&
+                i == nums.get(nums.size()-1) &&
+                i == nums.get(nums.size()-2)) continue;
             nums.add(i);
             per(cnt+1);
             nums.remove(nums.size()-1);
