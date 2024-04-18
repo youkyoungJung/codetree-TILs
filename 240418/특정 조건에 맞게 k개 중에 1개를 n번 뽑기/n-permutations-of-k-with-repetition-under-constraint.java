@@ -23,12 +23,12 @@ public class Main {
     
    public static void per(int cnt){
         if(cnt == n){
-            if(checked()){
+            // if(checked()){
                 for(int num : nums){
                     sb.append(num).append(" ");
                 }
                 sb.append("\n");
-            }
+            // }
             return;
         }
 
