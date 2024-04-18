@@ -32,7 +32,11 @@ public class Main {
             int temp = 1;
             // System.out.println(nums);
             for(int i = 0; i < nums.size(); i++){ //행
-                res += arr[temp][nums.get(i)];
+                int target = arr[temp][nums.get(i)];
+                if(target == 0){
+                    return;
+                }
+                res += target;
                 temp = nums.get(i);
             }
             res += arr[temp][1];
