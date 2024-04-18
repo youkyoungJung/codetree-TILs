@@ -34,27 +34,23 @@ public class Main {
         int r = Integer.parseInt(st.nextToken())-1;
         int c = Integer.parseInt(st.nextToken())-1;
 
-        go(r, c, 1, dir[r][c], 1);
+        go(r, c, 0, dir[r][c], 0);
         System.out.println(answer);
 
     }
 
     static int answer = 0;
     public static void go(int r, int c, int cnt, int d, int depth){
-        if(cnt == n){
-            answer = Math.max(answer, depth);
-            return;
-        }
+        answer = Math.max(answer, depth);
 
-        int nr = r + dist[d][0] * cnt;
-        int nc = c + dist[d][1] * cnt;
-        if(checked(nr, nc) && arr[r][c] < arr[nr][nc]){
-            go(nr, nc, cnt+1, dir[nr][nc], depth+1);
-        }else{
-            answer = Math.max(answer, depth);
-            return;
-        }
+        for(int i = 0; i < n; i++){
+            int nr = r + dist[d][0] * i;
+            int nc = c + dist[d][1] * i;
+            if(checked(nr, nc) && arr[r][c] < arr[nr][nc]){
+                go(nr, nc, cnt+1, dir[nr][nc], depth+1);
+            }
 
+        }
     }
 
     public static boolean checked(int nr, int nc){
