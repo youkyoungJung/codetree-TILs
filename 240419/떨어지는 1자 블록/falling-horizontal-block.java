@@ -26,16 +26,12 @@ public class Main {
             }
         }
 
-        //1. 행 구하기 열부터(k) 가장 위인 곳 체크(길이도 같이 체크하면서)
-        while(true){
-            boolean exist = simulate();
-            if(!exist) break; //행이 더 이상 움직일 필요가 없으면.
-            currentR++;
-        }
+        //1. 최종적으로 멈추게 될 위치 구하기
+        int currentR = getTargetRow();
 
         //2. 된다면 블럭 채움. 안된다면 위로 올라가기
         for(int i = k; i < k + m; i++){
-            arr[currentR-1][i] = 1;
+            arr[currentR][i] = 1;
         }
 
         for(int i = 0; i < n; i++){
@@ -48,12 +44,21 @@ public class Main {
 
     }
 
-    //행구하기 
-    public static boolean simulate(){
+    public static int getTargetRow(){
+        for(int row = 0; row < n-1; row++){
+            if(!allBlank(row)){
+                return row-1;
+            }
+        }
+        return n-1;
+    }
+
+    //allBlank
+    public static boolean allBlank(int row){
 
         //만날 때를 찾아야함.    
         for(int j = 0; j < m; j++){
-            if(checked(j+k) && arr[currentR][j+k] == 1){ //범위를 벗어 나지 않고, 만나는점이 1이면 return;
+            if(checked(j+k) && arr[row][j+k] == 1){ //범위를 벗어 나지 않고, 만나는점이 1이면 return;
                 return false;
             }
         }
@@ -62,7 +67,7 @@ public class Main {
     }
 
     public static boolean checked(int column){
-        return column >= 0 && column < n; 
+        return column >= 0 && column < n && currentR >= 0 && currentR < n; 
     }
     
 }
