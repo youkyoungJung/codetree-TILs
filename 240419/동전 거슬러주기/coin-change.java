@@ -11,7 +11,7 @@ public class Main {
 
         int[] arr = new int[n];
         int[] dp = new int[m+1];
-        Arrays.fill(dp, Integer.MAX_VALUE);
+        Arrays.fill(dp, 10_001);
         dp[0] = 0;
         
         st = new StringTokenizer(br.readLine());
@@ -26,6 +26,10 @@ public class Main {
                 }
             }
         }
-        System.out.println(dp[m]);
+        if(dp[m] == 10_001){
+            System.out.println(-1);
+        }else{
+            System.out.println(dp[m]);
+        }
     }
 }
