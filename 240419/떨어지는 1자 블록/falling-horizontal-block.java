@@ -45,7 +45,7 @@ public class Main {
     }
 
     public static int getTargetRow(){
-        for(int row = 0; row < n-1; row++){
+        for(int row = 0; row < n; row++){
             if(!allBlank(row)){
                 return row-1;
             }
