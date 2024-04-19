@@ -20,10 +20,10 @@ public class Main {
         // 이동 시에 행과 열이 전부 증가하도록
         // 모든 쌍을 다 잡아봅니다.
         int cnt = 0;
-        for(int i = 1; i < n-1; i++)
-            for(int j = 1; j < m-1; j++)
-                for(int k = i + 1; k < n - 1; k++)
-                    for(int l = j + 1; l < m - 1; l++)
+        for(int i = 1; i < n-2; i++)
+            for(int j = 1; j < m-2; j++)
+                for(int k = i + 1; k < n-1; k++)
+                    for(int l = j + 1; l < m-1; l++)
                         // 그 중 색깔이 전부 달라지는 경우에만 개수를 세줍니다.
                         if(grid[0][0] != grid[i][j] && 
                            grid[i][j] != grid[k][l] &&
