@@ -28,10 +28,12 @@ public class Main {
             int num = Integer.parseInt(st.nextToken());
 
             go2(dir, num);
-           
+
         }
 
-        for(int i = 1; i < 2_000_000; i++){
+        // System.out.println(Arrays.toString(timeA));
+        // System.out.println(Arrays.toString(timeB));
+        for(int i = 1; i < index; i++){
             if(timeA[i] == timeB[i]){
                 System.out.println(i);
                 return;
@@ -53,7 +55,7 @@ public class Main {
                 index++;
             }
         }
-        
+
     }
 
     public static void go2(char dir, int num){
@@ -68,6 +70,6 @@ public class Main {
                 index++;
             }
         }
-        
+
     }
 }
