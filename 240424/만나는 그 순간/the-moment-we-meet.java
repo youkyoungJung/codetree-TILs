@@ -63,7 +63,7 @@ public class Main {
                 index++;
             }
         }else{
-            for(int i = 1; i < num; i++){
+            for(int i = 1; i <= num; i++){
                 timeB[index] = timeB[index-1] + 1;
                 index++;
             }
