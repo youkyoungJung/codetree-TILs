@@ -26,6 +26,7 @@ public class Main {
 
         //1. 초깃값 생성
         init();
+        // System.out.println(Arrays.deepToString(dp));
 
         ArrayList<Integer> res = new ArrayList<>();
         // res.add(arr[0][0]);
@@ -46,8 +47,8 @@ public class Main {
 
         //1. 0행 초기화
         for(int i = 1; i < n; i++){
-            dp[0][i] = Math.min(arr[0][i-1], arr[0][i]);
-            dp[i][0] = Math.min(arr[i-1][0], arr[i][0]);
+            dp[0][i] = Math.min(dp[0][i-1], arr[0][i]);
+            dp[i][0] = Math.min(dp[i-1][0], arr[i][0]);
         }
 
     }
