@@ -27,19 +27,17 @@ public class Main {
         //1. 초깃값 생성
         init();
 
-        int answer = 0;
+        ArrayList<Integer> res = new ArrayList<>();
+        // res.add(arr[0][0]);
         for(int i = 1; i < n; i++){
             for(int j = 1; j < n; j++){
-                dp[i][j] = Math.min(arr[i][j], Math.min(dp[i-1][j], dp[i][j-1]));
-                answer = Math.max(answer, dp[i][j]);
+                dp[i][j] =  Math.max(Math.min(dp[i-1][j], arr[i][j]), Math.min(dp[i][j-1], arr[i][j]));
             }
         }
+        
         // System.out.println(Arrays.deepToString(dp));
-        if(n == 1){
-            System.out.println(arr[0][0]);
-        }else{
-            System.out.println(answer);
-        }
+        System.out.println(dp[n-1][n-1]);
+        
     }
 
     public static void init(){
