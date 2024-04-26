@@ -35,8 +35,11 @@ public class Main {
             }
         }
         // System.out.println(Arrays.deepToString(dp));
-        System.out.println(answer);
-
+        if(n == 1){
+            System.out.println(arr[0][0]);
+        }else{
+            System.out.println(answer);
+        }
     }
 
     public static void init(){
