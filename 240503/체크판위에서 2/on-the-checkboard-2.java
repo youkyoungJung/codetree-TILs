@@ -26,8 +26,8 @@ public class Main {
                 for(int k = i+1; k < n-1; k++){
                     for(int l = j+1; l < m-1; l++){
                         if(arr[0][0] != arr[i][j] &&
-                            arr[i][j] != arr[j][k] &&
-                            arr[j][k] != arr[n-1][m-1]){
+                            arr[i][j] != arr[k][l] &&
+                            arr[k][l] != arr[n-1][m-1]){
                             cnt++;
                         }
                     }
