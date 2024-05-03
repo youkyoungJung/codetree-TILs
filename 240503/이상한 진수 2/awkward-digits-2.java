@@ -14,9 +14,9 @@ public class Main {
             bit[i] = s.charAt(i) - '0';
         }
         // System.out.println(Arrays.toString(bit));
-        int answer = goTen();
+        int answer = 0;
 
-       for(int i = 1; i < bit.length; i++){
+       for(int i = 0; i < bit.length; i++){
             int target = bit[i];
 
             if(target != 0){
