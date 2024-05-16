@@ -28,7 +28,7 @@ public class Main {
                         sum += arr[k];
                         set.add((double)arr[k]);
                     }
-                    double avg = (double)sum / (j-i);
+                    double avg = (double)sum / (j-i+1);
                     if(set.contains(avg)){
                         // System.out.println("sum : " + sum + " avg: " + avg  + " i : " + i + " j : " +  j);
                         // System.out.println("avg: " + avg + " set: " + set);
