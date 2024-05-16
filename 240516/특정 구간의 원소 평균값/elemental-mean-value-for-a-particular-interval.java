@@ -17,18 +17,23 @@ public class Main {
 
         int answer = 0;
         for(int i = 0; i < n; i++){
-            for(int j = i+1; j < n; j++){
+            for(int j = i; j < n; j++){
 
-                int sum = 0;
-                HashSet<Integer> set = new HashSet<>();
-                for(int k = i; k < j; k++){
-                    sum += arr[k];
-                    set.add(arr[k]);
-                }
-                int avg = sum / (j-i);
-
-                if(set.contains(avg)){
+                if(i == j){
                     answer++;
+                }else{
+                    int sum = 0;
+                    HashSet<Double> set = new HashSet<>();
+                    for(int k = i; k <= j; k++){
+                        sum += arr[k];
+                        set.add((double)arr[k]);
+                    }
+                    double avg = (double)sum / (j-i);
+                    if(set.contains(avg)){
+                        // System.out.println("sum : " + sum + " avg: " + avg  + " i : " + i + " j : " +  j);
+                        // System.out.println("avg: " + avg + " set: " + set);
+                        answer++;
+                    }
                 }
             }
         }
