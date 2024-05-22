@@ -17,7 +17,7 @@ public class Main {
             int candy = Integer.parseInt(st.nextToken());
             int num = Integer.parseInt(st.nextToken()) + 100;
 
-            bucket[num] = candy;
+            bucket[num] += candy;
         }
 
         int answer = 0;
