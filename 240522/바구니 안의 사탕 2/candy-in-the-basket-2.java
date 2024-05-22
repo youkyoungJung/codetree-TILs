@@ -10,7 +10,7 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
 
-        int[] bucket = new int[300];
+        int[] bucket = new int[10001];
 
         for(int i = 0; i < n; i++){
             st = new StringTokenizer(br.readLine());
@@ -23,8 +23,10 @@ public class Main {
         int answer = 0;
         for(int c = 100; c <= 200; c++){
             int sum = 0;
-            for(int i = c - k; i <= c + k; i++){
-                sum += bucket[i];
+            if(k <= c){
+                for(int i = c - k; i <= c + k; i++){
+                    sum += bucket[i];
+                }
             }
             answer = Math.max(answer, sum);
         }
