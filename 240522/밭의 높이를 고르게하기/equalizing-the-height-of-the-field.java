@@ -19,7 +19,7 @@ public class Main {
         }
 
         int answer = Integer.MAX_VALUE;
-        for(int i = 0; i < n - t; i++){
+        for(int i = 0; i <= n - t; i++){
             int cost = 0;
             for(int j = i; j < i + t; j++){
                 cost += Math.abs(arr[j] - h);
