@@ -26,7 +26,7 @@ public class Main {
         t = Integer.parseInt(st.nextToken());
 
         int[][] arr = new int[n][n];
-        int[][] arr2 = new int[n][n]; //copy 배열
+        
 
         for(int i = 0; i < n; i++){
             st = new StringTokenizer(br.readLine());
@@ -44,8 +44,8 @@ public class Main {
             queue.offer(new Location(r, c));
         }
 
-        int cnt = 0;
         while(t-- > 0){
+            int[][] arr2 = new int[n][n]; //copy 배열
 
             while(!queue.isEmpty()){
                 Location current = queue.poll();
@@ -60,7 +60,7 @@ public class Main {
                     int nc = c + dist[i][1];
 
                     if(checked(nr, nc)){
-                        if(arr[r][c] <= arr[nr][nc] && maxN < arr[nr][nc]){
+                        if(maxN < arr[nr][nc]){
                             maxN = arr[nr][nc];
                             maxL.r = nr;
                             maxL.c = nc;
@@ -73,23 +73,21 @@ public class Main {
 
             } //end of queue
 
-            cnt = 0;
             for(int i = 0; i < n; i++){
                 for(int j = 0; j < n; j++){
                     if(arr2[i][j] > 1){
                         arr2[i][j] = 0;
                         // System.out.println("ti: " + i + " tj: "+j);
                     }else if(arr2[i][j] == 1){
-                        queue.offer(new Location(i, j));
                         // System.out.println("i: " + i + " j: "+j);
-                        cnt++;
+                        queue.offer(new Location(i, j));
                     }
                 }
             }
 
         }
         
-        System.out.println(cnt);
+        System.out.println(queue.size());
     }
 
     static boolean checked(int r, int c){
