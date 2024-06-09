@@ -60,14 +60,16 @@ public class Main {
                     int nc = c + dist[i][1];
 
                     if(checked(nr, nc)){
-                        if(arr[r][c] < arr[nr][nc] && maxN < arr[nr][nc]){
+                        if(arr[r][c] <= arr[nr][nc] && maxN < arr[nr][nc]){
                             maxN = arr[nr][nc];
                             maxL.r = nr;
                             maxL.c = nc;
                         }
                     }
                 }
-                arr2[maxL.r][maxL.c] += 1;
+                if(maxL.r > -1 && maxL.c > -1){
+                    arr2[maxL.r][maxL.c] += 1;
+                }
 
             } //end of queue
 
@@ -76,7 +78,7 @@ public class Main {
                 for(int j = 0; j < n; j++){
                     if(arr2[i][j] > 1){
                         arr2[i][j] = 0;
-                        // System.out.println("i: " + i + " j: "+j);
+                        // System.out.println("ti: " + i + " tj: "+j);
                     }else if(arr2[i][j] == 1){
                         queue.offer(new Location(i, j));
                         // System.out.println("i: " + i + " j: "+j);
