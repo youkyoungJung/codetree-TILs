@@ -85,6 +85,9 @@ public class Main {
     }
 
     public static void move(){
+        int pr = 0;
+        int pc = 0;
+
          while(!queue.isEmpty()){
                 Location current = queue.poll();
                 int direction = current.dir;
@@ -92,12 +95,13 @@ public class Main {
                 int nc = current.c + dist[direction][1];
 
                 if(checked(nr, nc)){
-                    // System.out.println("la?");
                     isVisited[current.r][current.c] -= 1;
-                    // arr[current.r][current.c] = 0;
 
                     isVisited[nr][nc] += 1;
                     arr[nr][nc] = direction;
+                    if(pr == nr && pc == nc){
+                        arr[current.r][current.c] = 0;
+                    }
                     
                 }else{
                     //방향 바꿔주기
@@ -105,13 +109,9 @@ public class Main {
                     arr[current.r][current.c] = direction;
                 }
 
-                // for(int i = 0; i < n; i++){
-                //     for(int j = 0; j < n; j++){
-                //         System.out.print(arr[i][j] + " ");
-                //     }
-                //     System.out.println();
-                // }
-                // System.out.println();
+                pr = nr;
+                pc = nc;
+
             }
     }
 
