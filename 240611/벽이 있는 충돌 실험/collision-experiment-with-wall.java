@@ -21,7 +21,6 @@ public class Main {
     static int cnt = 0;
     static int[][] arr;
     static int[][] isVisited;
-    static int direction = 0;
 
     public static void main(String[] args) throws IOException {
         // 여기에 코드를 작성해주세요.
@@ -64,21 +63,19 @@ public class Main {
             } // 바둑알 받기 완료
 
             for(int test = 0; test < 2*n; test++){
+
                 move();
 
-                cnt = 0;
                 for(int i = 0; i < n; i++){
                     for(int j = 0; j < n; j++){
-                        if(isVisited[i][j] == 1){
-                            cnt++;
+                        if(arr[i][j] > 0 && isVisited[i][j] == 1){
                             queue.offer(new Location(i, j, arr[i][j]));
                         }
                     }
                 }
             }
            
-            
-            sb.append(cnt).append("\n");
+            sb.append(queue.size()).append("\n");
         }
         System.out.println(sb.toString());
 
@@ -90,13 +87,14 @@ public class Main {
     public static void move(){
          while(!queue.isEmpty()){
                 Location current = queue.poll();
-                direction = current.dir;
+                int direction = current.dir;
                 int nr = current.r + dist[direction][0];
                 int nc = current.c + dist[direction][1];
 
                 if(checked(nr, nc)){
+                    // System.out.println("la?");
                     isVisited[current.r][current.c] -= 1;
-                    arr[current.r][current.c] = 0;
+                    // arr[current.r][current.c] = 0;
 
                     isVisited[nr][nc] += 1;
                     arr[nr][nc] = direction;
@@ -106,9 +104,17 @@ public class Main {
                     direction = changeDir(current.dir);
                     arr[current.r][current.c] = direction;
                 }
-            }
 
+                // for(int i = 0; i < n; i++){
+                //     for(int j = 0; j < n; j++){
+                //         System.out.print(arr[i][j] + " ");
+                //     }
+                //     System.out.println();
+                // }
+                // System.out.println();
+            }
     }
+
     public static int changeDir(int dir){
         if(dir == 1){//상
             return 2;
