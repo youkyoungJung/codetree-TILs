@@ -85,9 +85,7 @@ public class Main {
     }
 
     public static void move(){
-        int pr = 0;
-        int pc = 0;
-
+        int index = 0;
          while(!queue.isEmpty()){
                 Location current = queue.poll();
                 int direction = current.dir;
@@ -96,22 +94,18 @@ public class Main {
 
                 if(checked(nr, nc)){
                     isVisited[current.r][current.c] -= 1;
-
                     isVisited[nr][nc] += 1;
                     arr[nr][nc] = direction;
-                    if(pr == nr && pc == nc){
+                    if(index == 0 || queue.size() == 1){
                         arr[current.r][current.c] = 0;
                     }
-                    
+ 
                 }else{
                     //방향 바꿔주기
                     direction = changeDir(current.dir);
                     arr[current.r][current.c] = direction;
                 }
-
-                pr = nr;
-                pc = nc;
-
+                index++;
             }
     }
 
