@@ -35,7 +35,7 @@ public class Main {
         if(checked(nx, ny)){
             return new Location(nx, ny, dir);
         }else{
-            return new Location(r, c,changeDir(dir));
+            return new Location(r, c, 3-dir);
         }
     }
 
