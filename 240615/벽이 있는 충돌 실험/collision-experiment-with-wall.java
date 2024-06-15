@@ -14,13 +14,10 @@ public class Main {
         }
     }
 
-    static int[][] dist = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    static int[][] dist = {{-1, 0}, {0, 1}, {0, -1}, {1, 0}};
     static int n;
     static int m;
-    static Queue<Location> queue;
-    static int cnt = 0;
     static int[][] arr;
-    static int[][] isVisited;
     static ArrayList<Location> marbles = new ArrayList<>();
 
     //1초 후에 어떤 위치에서 어떤 방향을 보는지 상태 반환
@@ -106,7 +103,6 @@ public class Main {
             m = Integer.parseInt(st.nextToken());
 
             arr = new int[n][n];
-
             marbles= new ArrayList<>();
 
             for(int i = 0; i < m; i++){
