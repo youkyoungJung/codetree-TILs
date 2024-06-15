@@ -38,6 +38,13 @@ public class Main {
             c2 = Integer.parseInt(st.nextToken());
             shift(r1, c1, r2, c2);
             simulation(r1, r2, c1, c2);
+            for(int i = 1; i < n+1; i++){
+                for(int j = 1; j <m+1; j++){
+                    if(i >= r1 && i <= r2 && j >= c1 && j <= c2){
+                        arr[i][j] = tempArr[i][j];
+                    }
+                }
+            }
         }
 
         for(int i = 1; i < n+1; i++){
@@ -73,7 +80,28 @@ public class Main {
         }
 
         arr[r1][c1+1] = temp;
-
+        // int[][] deltas = {{0, 1}, {-1, 0}, {0, 1}, {-1, 0}};//왼쪽, 아래, 오른쪽, 위
+        // int r = r1, c = c1;
+        // int d = 0;//방향
+        // int num = arr[r][c];
+ 
+        // while (true) {
+        //     if (d == 4) break;
+ 
+        //     int tmpr = r + deltas[d][0];
+        //     int tmpc = c + deltas[d][1];
+ 
+        //     if (tmpr >= r1 && tmpr <= r2 && tmpc >= c1 && tmpc <= c2) {
+        //         int n = num;
+        //         num = arr[tmpr][tmpc];
+        //         arr[tmpr][tmpc] = n;
+    
+        //         r = tmpr;
+        //         c = tmpc;
+              
+        //     }
+        //     ++d;
+        // }
 
     }
 
@@ -96,6 +124,7 @@ public class Main {
 
         int average = sum / cnt;
         tempArr[r][c] = average;
+        // return average;
 
     }
 
