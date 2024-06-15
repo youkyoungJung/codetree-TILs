@@ -111,7 +111,7 @@ public class Main {
 
     public static Location goFindMax(Location location){
         int[][] dist = {{-1, -1}, {-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}};
-        Location findMax = new Location(-1, -1);
+        Location findMax = OUT_OF_GRID;
         int maxVal = Integer.MIN_VALUE;
 
         for(int i = 0; i < 8; i++){
@@ -122,8 +122,7 @@ public class Main {
                 for(int j = 0; j < arr[nr][nc].size(); j++){
                     if(arr[nr][nc].get(j) > maxVal){
                         maxVal = arr[nr][nc].get(j);
-                        findMax.r = nr;
-                        findMax.c = nc;
+                        findMax = new Location(nr, nc);
                     }
                 }
             }
